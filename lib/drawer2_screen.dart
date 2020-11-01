@@ -1,29 +1,25 @@
-import 'package:dpis_app/results.dart';
 import 'package:flutter/material.dart';
 
-class DrawerScreen extends StatefulWidget {
+class Drawer2Screen extends StatefulWidget {
   @override
-  _DrawerScreenState createState() => _DrawerScreenState();
+  _Drawer2ScreenState createState() => _Drawer2ScreenState();
 }
 
-class _DrawerScreenState extends State<DrawerScreen> {
+class _Drawer2ScreenState extends State<Drawer2Screen> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-              decoration: BoxDecoration(color: Colors.deepPurple[900]),
-              accountName: Text('Marvellous Felix'),
+              decoration: BoxDecoration(color: Colors.red[700]),
+              accountName: Text('Mr Darlington'),
               currentAccountPicture: CircleAvatar(),
-              accountEmail: Text('DPIS022')),
+              accountEmail: Text('STAFF')),
           DrawerListTile(
             iconData: Icons.receipt,
-            title: 'View result',
-            onTilePressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Results()));
-            },
+            title: 'Place result',
+            onTilePressed: () {},
           ),
           DrawerListTile(
             iconData: Icons.announcement,
@@ -35,15 +31,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
             title: 'Contact Us',
             onTilePressed: () {
               showModalBottomSheet(
-                  isScrollControlled: true,
                   shape: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.vertical(top: Radius.circular(20.0)),
                   ),
                   context: (context),
-                  builder: (BuildContext context) {
+                  builder: (BuildContext) {
                     return Container(
-                      height: MediaQuery.of(context).size.height / 3.5,
+                      height: 220,
                       child: Column(
                         children: [
                           SizedBox(height: 15),

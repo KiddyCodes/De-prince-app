@@ -1,5 +1,7 @@
 import 'package:dpis_app/drawer_screen.dart';
+import 'package:dpis_app/notification.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -18,29 +20,45 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       drawer: DrawerScreen(),
       // Disable opening the drawer with a swipe gesture.
-      drawerEnableOpenDragGesture: false,
+      drawerEnableOpenDragGesture: true,
       key: _scaffoldKey,
       body: Column(
         children: [
           Container(
-            height: 160.0,
+            height: MediaQuery.of(context).size.height / 2,
             child: Stack(
               children: <Widget>[
-                Container(
-                  color: Colors.deepPurple[900],
-                  width: MediaQuery.of(context).size.width,
-                  height: 100.0,
-                  child: Center(
-                    child: Text(
-                      "Marvellous Amadi",
-                      style: TextStyle(color: Colors.white, fontSize: 18.0),
-                    ),
-                  ),
-                ),
+                ClipPath(
+                    clipper: WaveClipperOne(),
+                    child: Container(
+                      height: 420,
+                      width: 500,
+                      color: Colors.deepPurple[900],
+                      child: Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 70),
+                          child: Container(
+                            child: Row(children: [
+                              Container(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        top: 30, left: 20),
+                                    child: Text(
+                                      "Hi, Marvellous",
+                                      style: TextStyle(
+                                          fontSize: 30, color: Colors.white),
+                                    ),
+                                  )),
+                            ]),
+                          ),
+                        ),
+                      ]),
+                    )),
                 Positioned(
-                  top: 80.0,
+                  top: 40.0,
                   left: 0.0,
-                  right: 250.0,
+                  right: MediaQuery.of(context).size.width / 1.39,
                   child: Card(
                     child: DecoratedBox(
                       decoration: BoxDecoration(
@@ -61,19 +79,21 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ),
                           IconButton(
-                            icon: Icon(
-                              Icons.notifications,
-                              color: Colors.deepPurple[900],
-                            ),
-                            onPressed: () {
-                              print("your menu action here");
-                            },
-                          ),
+                              icon: Icon(
+                                Icons.notifications,
+                                color: Colors.deepPurple[900],
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Notifications()));
+                              }),
                         ],
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),

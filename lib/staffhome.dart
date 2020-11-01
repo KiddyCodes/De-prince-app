@@ -1,4 +1,7 @@
+import 'package:dpis_app/drawer2_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'notification.dart';
 
 class StaffHome extends StatefulWidget {
   @override
@@ -8,9 +11,14 @@ class StaffHome extends StatefulWidget {
 class _StaffHomeState extends State<StaffHome> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
+  void _closeDrawer() {
+    Navigator.of(context).pop();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer2Screen(),
       key: _scaffoldKey,
       body: Column(
         children: [
@@ -32,7 +40,7 @@ class _StaffHomeState extends State<StaffHome> {
                 Positioned(
                   top: 80.0,
                   left: 0.0,
-                  right: 200.0,
+                  right: 300.0,
                   child: Card(
                     child: DecoratedBox(
                       decoration: BoxDecoration(
@@ -45,7 +53,7 @@ class _StaffHomeState extends State<StaffHome> {
                           IconButton(
                             icon: Icon(
                               Icons.menu,
-                              color: Colors.red[700],
+                              color: Colors.red[900],
                             ),
                             onPressed: () {
                               print("your menu action here");
@@ -53,28 +61,21 @@ class _StaffHomeState extends State<StaffHome> {
                             },
                           ),
                           IconButton(
-                            icon: Icon(
-                              Icons.search,
-                              color: Colors.red[700],
-                            ),
-                            onPressed: () {
-                              print("your menu action here");
-                            },
-                          ),
-                          IconButton(
-                            icon: Icon(
-                              Icons.notifications,
-                              color: Colors.red[700],
-                            ),
-                            onPressed: () {
-                              print("your menu action here");
-                            },
-                          ),
+                              icon: Icon(
+                                Icons.notifications,
+                                color: Colors.red[900],
+                              ),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Notifications()));
+                              }),
                         ],
                       ),
                     ),
                   ),
-                )
+                ),
               ],
             ),
           ),
