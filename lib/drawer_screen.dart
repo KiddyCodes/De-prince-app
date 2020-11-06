@@ -1,3 +1,4 @@
+import 'package:dpis_app/home.dart';
 import 'package:dpis_app/results.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +15,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
         children: <Widget>[
           UserAccountsDrawerHeader(
               decoration: BoxDecoration(color: Colors.deepPurple[900]),
-              accountName: Text('Marvellous Felix'),
+              accountName: Text("${studentLoad.studentName}"),
               currentAccountPicture: CircleAvatar(),
-              accountEmail: Text('DPIS022')),
+              accountEmail: Text("${studentLoad.studentEmail}")),
           DrawerListTile(
             iconData: Icons.receipt,
             title: 'View result',
