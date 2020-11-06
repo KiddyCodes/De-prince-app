@@ -7,7 +7,7 @@ class Results extends StatefulWidget {
 }
 
 class _ResultsState extends State<Results> {
-  bool isChecked = false, notChecked = false;
+  bool notChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +59,10 @@ class _ResultsState extends State<Results> {
                         Checkbox(
                             activeColor: Colors.deepPurple[900],
                             tristate: false,
-                            value: isChecked,
-                            onChanged: (value) {
+                            value: notChecked,
+                            onChanged: (bool value) {
                               setState(() {
-                                isChecked = value;
+                                notChecked = value;
                               });
                             })
                       ],
