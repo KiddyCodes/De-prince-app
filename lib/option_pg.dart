@@ -3,6 +3,8 @@ import 'package:dpis_app/home.dart';
 import 'package:dpis_app/staffhome.dart';
 import 'package:flutter/material.dart';
 
+import 'requests/authRequests.dart';
+
 class Firstpg extends StatefulWidget {
   @override
   _FirstpgState createState() => _FirstpgState();
@@ -10,6 +12,9 @@ class Firstpg extends StatefulWidget {
 
 class _FirstpgState extends State<Firstpg> {
   bool splash = false;
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
   @override
   void initState() {
@@ -88,7 +93,7 @@ class _FirstpgState extends State<Firstpg> {
                                               padding:
                                                   const EdgeInsets.only(top: 1),
                                               child: TextFormField(
-                                                maxLines: 2,
+                                                controller: _emailController,
                                                 keyboardType:
                                                     TextInputType.text,
                                                 decoration: new InputDecoration(
@@ -128,7 +133,7 @@ class _FirstpgState extends State<Firstpg> {
                                             padding:
                                                 const EdgeInsets.only(top: 1),
                                             child: TextFormField(
-                                              maxLines: 1,
+                                              controller: _passwordController,
                                               keyboardType: TextInputType.text,
                                               obscureText: true,
                                               decoration: new InputDecoration(
@@ -164,11 +169,10 @@ class _FirstpgState extends State<Firstpg> {
                                               BorderRadius.circular(15)),
                                       color: Colors.deepPurple[900],
                                       onPressed: () {
-                                        Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    HomeScreen()));
+                                        AuthRequests().userSignIn(
+                                            _emailController.text,
+                                            _passwordController.text,
+                                            context);
                                       },
                                       child: Text("Login",
                                           style: TextStyle(
