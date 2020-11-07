@@ -1,11 +1,7 @@
 import 'package:dpis_app/drawer_screen.dart';
 import 'package:dpis_app/notification.dart';
-import 'package:dpis_app/student/sharedprf.dart';
-import 'package:dpis_app/student/student.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-
-UserData studentLoad = UserData();
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,34 +10,9 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
-  loadSharedPrefs() async {
-    try {
-      UserData student = UserData.fromJson(await SharedPref().read("userData"));
-      print("Data loaded");
-
-      // Scaffold.of(context).showSnackBar(SnackBar(
-      //     content: new Text("Loaded!"),
-      //     duration: const Duration(milliseconds: 10)));
-      setState(() {
-        studentLoad = student;
-      });
-    } catch (Excepetion) {
-      print(Excepetion);
-      // Scaffold.of(context).showSnackBar(SnackBar(
-      //     content: new Text("Nothing found!"),
-      //     duration: const Duration(milliseconds: 10)));
-    }
-  }
 
   void _closeDrawer() {
     Navigator.of(context).pop();
-  }
-
-  @override
-  void initState() {
-    loadSharedPrefs();
-    // TODO: implement initState
-    super.initState();
   }
 
   @override
@@ -74,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                     padding: const EdgeInsets.only(
                                         top: 30, left: 20),
                                     child: Text(
-                                      "Hi, ${studentLoad.studentName}",
+                                      "Hi, Marvellous",
                                       style: TextStyle(
                                           fontSize: 30, color: Colors.white),
                                     ),
