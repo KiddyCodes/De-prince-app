@@ -1,6 +1,9 @@
 import 'package:dpis_app/home.dart';
 import 'package:dpis_app/results.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'option_pg.dart';
 
 class DrawerScreen extends StatefulWidget {
   @override
@@ -105,7 +108,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   style: TextStyle(fontSize: 17),
                                 ),
                                 Text(
-                                  "Built & Powered by Seeqzaza",
+                                  "Built by Seeqzaza",
                                   style: TextStyle(fontSize: 15),
                                 ),
                                 Container(
@@ -127,6 +130,30 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ),
                     );
                   });
+            },
+          ),
+          DrawerListTile(
+            iconData: Icons.exit_to_app,
+            title: 'Sign Out',
+            onTilePressed: () async {
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+
+              await sharedPreferences.clear();
+              await sharedPreferences.remove("UserData");
+              await sharedPreferences.setString("UserData", null);
+              // setState(() {
+              //   vendorLoad.vendorId = null;
+              //   vendorLoad.vendorNumber = null;
+              //   vendorLoad.vendorName = null;
+              //   vendorLoad.vendorEmail = null;
+              // });
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext ctx) => Firstpg(),
+                ),
+              );
             },
           ),
           SizedBox(height: 260),
