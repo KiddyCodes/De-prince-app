@@ -7,7 +7,7 @@ class Results extends StatefulWidget {
 }
 
 class _ResultsState extends State<Results> {
-  bool notChecked = false;
+  bool notChecked = false, isChecked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -23,117 +23,103 @@ class _ResultsState extends State<Results> {
                 Padding(
                   padding: const EdgeInsets.only(top: 50),
                   child: Container(
-                    child: Center(
-                      child: Container(
-                        child: Text(
-                          "View Result",
-                          style: TextStyle(fontSize: 30, color: Colors.white),
+                    child: Row(
+                      children: [
+                        IconButton(
+                            icon: Icon(
+                              Icons.arrow_back,
+                              size: 20,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            }),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 100),
+                          child: Center(
+                            child: Container(
+                              child: Text(
+                                "View Result",
+                                style: TextStyle(
+                                    fontSize: 30, color: Colors.white),
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
                   ),
                 ),
               ]),
             )),
-        Padding(
-          padding: const EdgeInsets.only(top: 30, left: 50),
-          child: Row(
-            children: [
-              Container(
-                height: 100,
-                width: 80,
-                child: Card(
-                    elevation: 10,
-                    color: Colors.white,
-                    child: Center(
-                        child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 10),
-                          child: Text(
-                            "jss1-3",
-                            style: TextStyle(
-                                color: Colors.deepPurple[900], fontSize: 15),
-                          ),
-                        ),
-                        Checkbox(
-                            activeColor: Colors.deepPurple[900],
-                            tristate: false,
-                            value: notChecked,
-                            onChanged: (bool value) {
-                              setState(() {
-                                notChecked = value;
-                              });
-                            })
-                      ],
-                    ))),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 50),
-                child: Container(
+        GestureDetector(
+          onTap: () {
+            showAlertDialog2(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(
+              top: 150,
+            ),
+            child: Column(
+              children: [
+                Container(
                   height: 100,
-                  width: 80,
+                  width: 300,
+                  decoration:
+                      BoxDecoration(borderRadius: BorderRadius.circular(20)),
                   child: Card(
-                      elevation: 10,
+                      shadowColor: Colors.deepOrangeAccent[900],
+                      elevation: 20,
                       color: Colors.white,
                       child: Center(
-                          child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 10),
-                            child: Text(
-                              "ss1-3",
-                              style: TextStyle(
-                                  color: Colors.deepPurple[900], fontSize: 15),
-                            ),
+                        child: Padding(
+                          padding: const EdgeInsets.only(),
+                          child: Text(
+                            "Junior Secondary School",
+                            style: TextStyle(
+                                color: Colors.deepPurple[900], fontSize: 19),
                           ),
-                          Checkbox(
-                              activeColor: Colors.deepPurple[900],
-                              tristate: false,
-                              value: notChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  notChecked = value;
-                                });
-                              })
-                        ],
-                      ))),
+                        ),
+                      )),
                 ),
-              ),
-            ],
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 185, right: 10),
-          child: Container(
-            alignment: Alignment.bottomRight,
-            child: FloatingActionButton.extended(
-                backgroundColor: Colors.white,
-                onPressed: () {
-                  showAlertDialog(context);
-                },
-                label: Row(
-                  children: [
-                    Text(
-                      "click here",
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.deepPurple[900]),
+                GestureDetector(
+                  onTap: () {
+                    showAlertDialog1(context);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 50),
+                    child: Container(
+                      height: 100,
+                      width: 300,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20)),
+                      child: Card(
+                          shadowColor: Colors.deepOrangeAccent[900],
+                          elevation: 20,
+                          color: Colors.white,
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.only(),
+                              child: Text(
+                                "Senior Secondary School",
+                                style: TextStyle(
+                                    color: Colors.deepPurple[900],
+                                    fontSize: 19),
+                              ),
+                            ),
+                          )),
                     ),
-                    Icon(
-                      Icons.arrow_forward,
-                      color: Colors.deepPurple[900],
-                    ),
-                  ],
-                )),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ]),
     );
   }
 
-  void showAlertDialog(BuildContext context) {
+  void showAlertDialog1(BuildContext context) {
     showDialog<void>(
         context: context,
         barrierDismissible: false,
@@ -190,6 +176,84 @@ class _ResultsState extends State<Results> {
                               onPressed: () {},
                               child: Text(
                                 'SS3',
+                                style: TextStyle(color: Colors.deepPurple[900]),
+                              )),
+                        )),
+                  ),
+                ],
+              ),
+              actions: [
+                FlatButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(color: Colors.deepPurple[900]),
+                    ))
+              ],
+            ),
+          );
+        });
+  }
+
+  void showAlertDialog2(BuildContext context) {
+    showDialog<void>(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return Container(
+            height: 300,
+            child: AlertDialog(
+              title: Column(
+                children: [
+                  Container(
+                    height: 50,
+                    child: Container(
+                        width: 200,
+                        height: 100,
+                        child: Card(
+                          elevation: 10,
+                          child: FlatButton(
+                              onPressed: () {},
+                              child: Text(
+                                'JSS1',
+                                style: TextStyle(color: Colors.deepPurple[900]),
+                              )),
+                        )),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 50,
+                    child: Container(
+                        width: 200,
+                        height: 100,
+                        child: Card(
+                          elevation: 10,
+                          child: FlatButton(
+                              onPressed: () {},
+                              child: Text(
+                                'JSS2',
+                                style: TextStyle(color: Colors.deepPurple[900]),
+                              )),
+                        )),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                    height: 50,
+                    child: Container(
+                        width: 200,
+                        height: 100,
+                        child: Card(
+                          elevation: 10,
+                          child: FlatButton(
+                              onPressed: () {},
+                              child: Text(
+                                'JSS3',
                                 style: TextStyle(color: Colors.deepPurple[900]),
                               )),
                         )),

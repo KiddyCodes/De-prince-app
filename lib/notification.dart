@@ -22,290 +22,265 @@ class _NotificationsState extends State<Notifications> {
           elevation: 10,
           automaticallyImplyLeading: false,
           backgroundColor: Colors.white,
-          title: Container(
-            alignment: Alignment.bottomCenter,
-            child: Text("Notifications",
-                style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.black,
-                )),
+          title: Padding(
+            padding: const EdgeInsets.only(right: 30),
+            child: Container(
+              alignment: Alignment.bottomCenter,
+              child: Text("Notifications",
+                  style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.black,
+                  )),
+            ),
           ),
         ),
         backgroundColor: Colors.grey[100],
         body: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                  height: 150,
-                  width: 400,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'assets/hash.jpg',
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                    height: 150,
+                    width: 400,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          trailing: IconButton(
+                              icon: Icon(
+                                Icons.delete_outline,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                showAlertDialog(context);
+                              }),
+                          title: Text('Mr Kenneth'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20, left: 15),
+                          child: Text(
+                            'Hello,i have updated ur jss1 results so u can go and view it',
+                            style: TextStyle(color: Colors.black, fontSize: 20),
                           ),
-                          radius: 25,
                         ),
-                        trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete_outline,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              showAlertDialog(context);
-                            }),
-                        title: Text('Mr Kenneth'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20, left: 15),
-                        child: Text(
-                          'Hello,i have updated ur jss1 results so u can go and view it',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 25),
-                        child: Row(
-                          children: [
-                            Container(
-                                alignment: Alignment.bottomLeft,
-                                child: Text('12:45')),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 250),
-                              child: Container(
-                                  alignment: Alignment.bottomRight,
-                                  child: Text('Today')),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                  height: 150,
-                  width: 400,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'assets/mine.jpg',
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 25),
+                          child: Row(
+                            children: [
+                              Container(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text('12:45')),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 250),
+                                child: Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: Text('Today')),
+                              ),
+                            ],
                           ),
-                          radius: 25,
+                        )
+                      ],
+                    )),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                    height: 150,
+                    width: 400,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          trailing: IconButton(
+                              icon: Icon(
+                                Icons.delete_outline,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                showAlertDialog(context);
+                              }),
+                          title: Text('Mr Kalu'),
                         ),
-                        trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete_outline,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              showAlertDialog(context);
-                            }),
-                        title: Text('Mr Kalu'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20, left: 15),
-                        child: Text(
-                          'Hello,i have updated ur SS1 results so u can go and view it',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 25),
-                        child: Row(
-                          children: [
-                            Container(
-                                alignment: Alignment.bottomLeft,
-                                child: Text('12:45')),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 250),
-                              child: Container(
-                                  alignment: Alignment.bottomRight,
-                                  child: Text('Yesterday')),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                  height: 150,
-                  width: 400,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'assets/hh.jpg',
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20, left: 15),
+                          child: Text(
+                            'Hello,i have updated ur SS1 results so u can go and view it',
+                            style: TextStyle(color: Colors.black, fontSize: 20),
                           ),
-                          radius: 25,
                         ),
-                        trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete_outline,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              showAlertDialog(context);
-                            }),
-                        title: Text('Mr Nathaniel'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20, left: 15),
-                        child: Text(
-                          'Hello,i have updated ur jss2 results so u can go and view it',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 25),
-                        child: Row(
-                          children: [
-                            Container(
-                                alignment: Alignment.bottomLeft,
-                                child: Text('12:45')),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 250),
-                              child: Container(
-                                  alignment: Alignment.bottomRight,
-                                  child: Text('Last Week')),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                  height: 150,
-                  width: 400,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'assets/hi.jpg',
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 25),
+                          child: Row(
+                            children: [
+                              Container(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text('12:45')),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 250),
+                                child: Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: Text('Yesterday')),
+                              ),
+                            ],
                           ),
-                          radius: 25,
+                        )
+                      ],
+                    )),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                    height: 150,
+                    width: 400,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          trailing: IconButton(
+                              icon: Icon(
+                                Icons.delete_outline,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                showAlertDialog(context);
+                              }),
+                          title: Text('Mr Nathaniel'),
                         ),
-                        trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete_outline,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              showAlertDialog(context);
-                            }),
-                        title: Text('Mr Raymond'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20, left: 15),
-                        child: Text(
-                          'Hello,i have updated ur SS2 results so u can go and view it',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 25),
-                        child: Row(
-                          children: [
-                            Container(
-                                alignment: Alignment.bottomLeft,
-                                child: Text('12:45')),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 250),
-                              child: Container(
-                                  alignment: Alignment.bottomRight,
-                                  child: Text('Last Month')),
-                            ),
-                          ],
-                        ),
-                      )
-                    ],
-                  )),
-              SizedBox(
-                height: 30,
-              ),
-              Container(
-                  height: 150,
-                  width: 400,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.white),
-                  child: Column(
-                    children: [
-                      ListTile(
-                        leading: CircleAvatar(
-                          backgroundImage: AssetImage(
-                            'assets/shh.jpg',
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20, left: 15),
+                          child: Text(
+                            'Hello,i have updated ur jss2 results so u can go and view it',
+                            style: TextStyle(color: Colors.black, fontSize: 20),
                           ),
-                          radius: 25,
                         ),
-                        trailing: IconButton(
-                            icon: Icon(
-                              Icons.delete_outline,
-                              size: 20,
-                              color: Colors.black,
-                            ),
-                            onPressed: () {
-                              showAlertDialog(context);
-                            }),
-                        title: Text('Mr Dalington'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(right: 20, left: 15),
-                        child: Text(
-                          'Hello,i have updated ur jss3 results so u can go and view it',
-                          style: TextStyle(color: Colors.black, fontSize: 20),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 25),
+                          child: Row(
+                            children: [
+                              Container(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text('12:45')),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 250),
+                                child: Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: Text('Last Week')),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                    height: 150,
+                    width: 400,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          trailing: IconButton(
+                              icon: Icon(
+                                Icons.delete_outline,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                showAlertDialog(context);
+                              }),
+                          title: Text('Mr Raymond'),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 10, left: 25),
-                        child: Row(
-                          children: [
-                            Container(
-                                alignment: Alignment.bottomLeft,
-                                child: Text('11:30')),
-                            Padding(
-                              padding: const EdgeInsets.only(left: 250),
-                              child: Container(
-                                  alignment: Alignment.bottomRight,
-                                  child: Text('Last Month')),
-                            ),
-                          ],
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20, left: 15),
+                          child: Text(
+                            'Hello,i have updated ur SS2 results so u can go and view it',
+                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          ),
                         ),
-                      )
-                    ],
-                  )),
-            ],
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 25),
+                          child: Row(
+                            children: [
+                              Container(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text('12:45')),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 250),
+                                child: Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: Text('Last Month')),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                    height: 150,
+                    width: 400,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.white),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          trailing: IconButton(
+                              icon: Icon(
+                                Icons.delete_outline,
+                                size: 20,
+                                color: Colors.black,
+                              ),
+                              onPressed: () {
+                                showAlertDialog(context);
+                              }),
+                          title: Text('Mr Dalington'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(right: 20, left: 15),
+                          child: Text(
+                            'Hello,i have updated ur jss3 results so u can go and view it',
+                            style: TextStyle(color: Colors.black, fontSize: 20),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 10, left: 25),
+                          child: Row(
+                            children: [
+                              Container(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Text('11:30')),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 250),
+                                child: Container(
+                                    alignment: Alignment.bottomRight,
+                                    child: Text('Last Month')),
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+              ],
+            ),
           ),
         ));
   }
