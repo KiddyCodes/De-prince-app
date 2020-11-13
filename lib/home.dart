@@ -51,12 +51,11 @@ class _HomeScreenState extends State<HomeScreen> {
       // Disable opening the drawer with a swipe gesture.
       drawerEnableOpenDragGesture: true,
       key: _scaffoldKey,
-      body: Column(
-        children: [
+      body: SingleChildScrollView(
+        child: Stack(children: <Widget>[
           Container(
-            height: MediaQuery.of(context).size.height / 2,
-            child: Stack(
-              children: <Widget>[
+              height: MediaQuery.of(context).size.height / 2,
+              child: Stack(children: <Widget>[
                 ClipPath(
                     clipper: WaveClipperOne(),
                     child: Container(
@@ -72,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   alignment: Alignment.topLeft,
                                   child: Padding(
                                     padding: const EdgeInsets.only(
-                                        top: 30, left: 20),
+                                        top: 50, left: 20),
                                     child: Text(
                                       "Hi, ${studentLoad.studentName}",
                                       style: TextStyle(
@@ -123,10 +122,112 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-        ],
+              ])
+              // SizedBox(height: MediaQuery.of(context).size.height / 40),
+              ),
+          Padding(
+            padding: const EdgeInsets.only(top: 300),
+            child: Center(
+                child: Container(
+                    width: 400,
+                    height: 400,
+                    child: Card(
+                      elevation: 3,
+                      child: Column(
+                        children: [
+                          Container(
+                            width: 400,
+                            height: 50,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                    bottomRight: Radius.circular(8),
+                                    bottomLeft: Radius.circular(8)),
+                                color: Colors.grey[200]),
+                            child: ListTile(
+                              title: Text(
+                                'Student Information',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            width: 400,
+                            height: 40,
+                            child: ListTile(
+                              title: Text('Name:'),
+                              trailing: Text(' ${studentLoad.studentName}'),
+                            ),
+                          ),
+                          Divider(
+                            thickness: 0,
+                            color: Colors.black,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 0),
+                            child: Container(
+                              width: 400,
+                              height: 30,
+                              child: ListTile(
+                                title: Text('Class:'),
+                                trailing: Text(' ${studentLoad.studentClass}'),
+                              ),
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                          ),
+                          Container(
+                            width: 400,
+                            height: 30,
+                            child: ListTile(
+                              title: Text('Course'),
+                              trailing: Text(' ${studentLoad.studentCourse}'),
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                          ),
+                          Container(
+                            width: 400,
+                            height: 30,
+                            child: ListTile(
+                              title: Text('StudentId:'),
+                              trailing: Text(' ${studentLoad.vcode}'),
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                          ),
+                          Container(
+                            width: 400,
+                            height: 30,
+                            child: ListTile(
+                              title: Text('Phone Number:'),
+                              trailing: Text(' ${studentLoad.studentNumber}'),
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                          ),
+                          Container(
+                            width: 400,
+                            height: 30,
+                            child: ListTile(
+                              title: Text('Email:'),
+                              trailing: Text(' ${studentLoad.studentEmail}'),
+                            ),
+                          ),
+                          Divider(
+                            color: Colors.black,
+                          ),
+                        ],
+                      ),
+                    ))),
+          )
+        ]),
       ),
     );
   }
