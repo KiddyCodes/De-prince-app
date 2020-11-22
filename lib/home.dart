@@ -128,104 +128,107 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(top: 300),
             child: Center(
-                child: Container(
-                    width: 400,
-                    height: 400,
-                    child: Card(
-                      elevation: 3,
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 400,
-                            height: 50,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                    bottomRight: Radius.circular(8),
-                                    bottomLeft: Radius.circular(8)),
-                                color: Colors.grey[200]),
-                            child: ListTile(
-                              title: Text(
-                                'Student Information',
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold),
-                              ),
+                child: Opacity(
+              opacity: 0.95,
+              child: Container(
+                  width: 400,
+                  height: 400,
+                  child: Card(
+                    elevation: 3,
+                    child: Column(
+                      children: [
+                        Container(
+                          width: 400,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                  bottomRight: Radius.circular(8),
+                                  bottomLeft: Radius.circular(8)),
+                              color: Colors.grey[200]),
+                          child: ListTile(
+                            title: Text(
+                              'Student Information',
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
                             ),
                           ),
-                          Container(
-                            width: 400,
-                            height: 40,
-                            child: ListTile(
-                              title: Text('Name:'),
-                              trailing: Text(' ${studentLoad.studentName}'),
-                            ),
+                        ),
+                        Container(
+                          width: 400,
+                          height: 40,
+                          child: ListTile(
+                            title: Text('Name:'),
+                            trailing: Text(' ${studentLoad.studentName}'),
                           ),
-                          Divider(
-                            thickness: 0,
-                            color: Colors.black,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 0),
-                            child: Container(
-                              width: 400,
-                              height: 30,
-                              child: ListTile(
-                                title: Text('Class:'),
-                                trailing: Text(' ${studentLoad.studentClass}'),
-                              ),
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.black,
-                          ),
-                          Container(
+                        ),
+                        Divider(
+                          thickness: 0,
+                          color: Colors.black,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 0),
+                          child: Container(
                             width: 400,
                             height: 30,
                             child: ListTile(
-                              title: Text('Course'),
-                              trailing: Text(' ${studentLoad.studentCourse}'),
+                              title: Text('Class:'),
+                              trailing: Text(' ${studentLoad.studentClass}'),
                             ),
                           ),
-                          Divider(
-                            color: Colors.black,
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Container(
+                          width: 400,
+                          height: 30,
+                          child: ListTile(
+                            title: Text('Course'),
+                            trailing: Text(' ${studentLoad.studentCourse}'),
                           ),
-                          Container(
-                            width: 400,
-                            height: 30,
-                            child: ListTile(
-                              title: Text('StudentId:'),
-                              trailing: Text(' ${studentLoad.vcode}'),
-                            ),
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Container(
+                          width: 400,
+                          height: 30,
+                          child: ListTile(
+                            title: Text('StudentId:'),
+                            trailing: Text(' ${studentLoad.vcode}'),
                           ),
-                          Divider(
-                            color: Colors.black,
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Container(
+                          width: 400,
+                          height: 30,
+                          child: ListTile(
+                            title: Text('Phone Number:'),
+                            trailing: Text(' ${studentLoad.studentNumber}'),
                           ),
-                          Container(
-                            width: 400,
-                            height: 30,
-                            child: ListTile(
-                              title: Text('Phone Number:'),
-                              trailing: Text(' ${studentLoad.studentNumber}'),
-                            ),
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                        Container(
+                          width: 400,
+                          height: 30,
+                          child: ListTile(
+                            title: Text('Email:'),
+                            trailing: Text(' ${studentLoad.studentEmail}'),
                           ),
-                          Divider(
-                            color: Colors.black,
-                          ),
-                          Container(
-                            width: 400,
-                            height: 30,
-                            child: ListTile(
-                              title: Text('Email:'),
-                              trailing: Text(' ${studentLoad.studentEmail}'),
-                            ),
-                          ),
-                          Divider(
-                            color: Colors.black,
-                          ),
-                        ],
-                      ),
-                    ))),
+                        ),
+                        Divider(
+                          color: Colors.black,
+                        ),
+                      ],
+                    ),
+                  )),
+            )),
           )
         ]),
       ),

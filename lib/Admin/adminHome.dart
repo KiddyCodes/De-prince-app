@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:dpis_app/requests/authRequests.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../notification.dart';
 
@@ -15,6 +18,79 @@ class _AdminHomeState extends State<AdminHome> {
   final _staffemail = TextEditingController();
   final _staffphone = TextEditingController();
   final _subject = TextEditingController();
+  final _studName = TextEditingController();
+  final _studpass = TextEditingController();
+  final _studid = TextEditingController();
+  final _studemail = TextEditingController();
+  final _studphone = TextEditingController();
+  final _course = TextEditingController();
+  final _class = TextEditingController();
+  final _age = TextEditingController();
+  File _imageFile;
+  File _imageFilei;
+
+  void _getImage(BuildContext context, ImageSource source) async {
+    final image = await ImagePicker().getImage(
+      source: source,
+      maxWidth: 800,
+    );
+    setState(() {
+      // _imageFile = image.path;
+      _imageFile = File(image.path);
+      _imageFilei = File(image.path);
+    });
+    // Closes the bottom sheet
+    Navigator.pop(context);
+  }
+
+  void openImagePickerModal(BuildContext context) {
+    print('Image Picker Modal Called');
+    showModalBottomSheet(
+        context: context,
+        builder: (BuildContext context) {
+          return Container(
+            color: Colors.black.withOpacity(0.9),
+            child: Container(
+              decoration: BoxDecoration(
+                // color: Theme.of(context).backgroundColor,
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(16),
+                    topRight: Radius.circular(16)),
+              ),
+              height: MediaQuery.of(context).size.height / 4,
+              padding: EdgeInsets.only(top: 10.0),
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'Choose an option',
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.deepPurple[700]),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  FlatButton(
+                    textColor: Colors.black,
+                    child: Text('Take a Picture'),
+                    onPressed: () {
+                      _getImage(context, ImageSource.camera);
+                    },
+                  ),
+                  FlatButton(
+                    textColor: Colors.black,
+                    child: Text('Pick Image from Gallery'),
+                    onPressed: () {
+                      _getImage(context, ImageSource.gallery);
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +98,798 @@ class _AdminHomeState extends State<AdminHome> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.blue[900],
         onPressed: () {
-          showAdd(context);
+          showDialog<void>(
+              context: context,
+              barrierDismissible: false,
+              builder: (BuildContext context) {
+                return Container(
+                  height: 300,
+                  child: AlertDialog(
+                    title: Column(
+                      children: [
+                        Container(
+                          height: 50,
+                          child: Container(
+                              width: 200,
+                              height: 100,
+                              child: Card(
+                                elevation: 10,
+                                child: FlatButton(
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          elevation: 4.0,
+                                          context: context,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(20.0)),
+                                          ),
+                                          builder: (BuildContext bc) {
+                                            return SingleChildScrollView(
+                                              reverse: true,
+                                              child: Container(
+                                                height: 800,
+                                                child: Column(
+                                                  children: [
+                                                    SizedBox(
+                                                      height: 20,
+                                                    ),
+                                                    GestureDetector(
+                                                        onTap: () {
+                                                          openImagePickerModal(
+                                                              context);
+                                                          print("hello");
+                                                        },
+                                                        child: Container(
+                                                          height: 120.0,
+                                                          width: 120.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                            color: Colors.white
+                                                                .withOpacity(
+                                                                    0.1),
+                                                            image:
+                                                                DecorationImage(
+                                                              image: _imageFile !=
+                                                                      null
+                                                                  ? FileImage(
+                                                                      _imageFile)
+                                                                  : AssetImage(
+                                                                      'assets/logodp.png'),
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
+                                                          child: Icon(
+                                                            Icons.add_a_photo,
+                                                            size: 43,
+                                                            color: Colors.white,
+                                                          ),
+                                                        )),
+                                                    SingleChildScrollView(
+                                                      reverse: true,
+                                                      child: Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 15,
+                                                                right: 15),
+                                                        child: Container(
+                                                            height: 70,
+                                                            child: Card(
+                                                              shadowColor:
+                                                                  Colors.black,
+                                                              color:
+                                                                  Colors.white,
+                                                              elevation: 4.0,
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 1),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        _staffName,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .text,
+                                                                    decoration: new InputDecoration(
+                                                                        focusedBorder: InputBorder.none,
+                                                                        enabledBorder: InputBorder.none,
+                                                                        // errorBorder: ,
+                                                                        disabledBorder: InputBorder.none,
+                                                                        labelText: 'Staff Name',
+                                                                        labelStyle: TextStyle(color: Colors.grey),
+                                                                        contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                        hintText: 'Staff Name'),
+                                                                  )),
+                                                            )),
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 15,
+                                                              right: 15),
+                                                      child: Container(
+                                                          height: 70,
+                                                          child: Card(
+                                                            color: Colors.white,
+                                                            elevation: 4.0,
+                                                            child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        top: 1),
+                                                                child:
+                                                                    TextFormField(
+                                                                  controller:
+                                                                      _staffpass,
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .text,
+                                                                  obscureText:
+                                                                      true,
+                                                                  decoration: new InputDecoration(
+                                                                      focusedBorder: InputBorder.none,
+                                                                      enabledBorder: InputBorder.none,
+                                                                      // errorBorder: ,
+                                                                      disabledBorder: InputBorder.none,
+                                                                      labelText: 'Password',
+                                                                      labelStyle: TextStyle(color: Colors.grey),
+                                                                      contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                      hintText: 'Password'),
+                                                                )),
+                                                          )),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 15,
+                                                              right: 15),
+                                                      child: Container(
+                                                          height: 70,
+                                                          child: Card(
+                                                            shadowColor:
+                                                                Colors.black,
+                                                            color: Colors.white,
+                                                            elevation: 4.0,
+                                                            child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        top: 1),
+                                                                child:
+                                                                    TextFormField(
+                                                                  controller:
+                                                                      _staffid,
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .text,
+                                                                  decoration: new InputDecoration(
+                                                                      focusedBorder: InputBorder.none,
+                                                                      enabledBorder: InputBorder.none,
+                                                                      // errorBorder: ,
+                                                                      disabledBorder: InputBorder.none,
+                                                                      labelText: 'StaffId',
+                                                                      labelStyle: TextStyle(color: Colors.grey),
+                                                                      contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                      hintText: 'StaffId'),
+                                                                )),
+                                                          )),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 15,
+                                                              right: 15),
+                                                      child: Container(
+                                                          height: 70,
+                                                          child: Card(
+                                                            shadowColor:
+                                                                Colors.black,
+                                                            color: Colors.white,
+                                                            elevation: 4.0,
+                                                            child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        top: 1),
+                                                                child:
+                                                                    TextFormField(
+                                                                  controller:
+                                                                      _staffemail,
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .emailAddress,
+                                                                  decoration: new InputDecoration(
+                                                                      focusedBorder: InputBorder.none,
+                                                                      enabledBorder: InputBorder.none,
+                                                                      // errorBorder: ,
+                                                                      disabledBorder: InputBorder.none,
+                                                                      labelText: 'email',
+                                                                      labelStyle: TextStyle(color: Colors.grey),
+                                                                      contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                      hintText: 'email'),
+                                                                )),
+                                                          )),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 15,
+                                                              right: 15),
+                                                      child: Container(
+                                                          height: 70,
+                                                          child: Card(
+                                                            shadowColor:
+                                                                Colors.black,
+                                                            color: Colors.white,
+                                                            elevation: 4.0,
+                                                            child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        top: 1),
+                                                                child:
+                                                                    TextFormField(
+                                                                  controller:
+                                                                      _staffphone,
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .number,
+                                                                  decoration: new InputDecoration(
+                                                                      focusedBorder: InputBorder.none,
+                                                                      enabledBorder: InputBorder.none,
+                                                                      // errorBorder: ,
+                                                                      disabledBorder: InputBorder.none,
+                                                                      labelText: 'PhoneNumber',
+                                                                      labelStyle: TextStyle(color: Colors.grey),
+                                                                      contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                      hintText: 'PhoneNumber'),
+                                                                )),
+                                                          )),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              left: 15,
+                                                              right: 15),
+                                                      child: Container(
+                                                          height: 70,
+                                                          child: Card(
+                                                            shadowColor:
+                                                                Colors.black,
+                                                            color: Colors.white,
+                                                            elevation: 4.0,
+                                                            child: Padding(
+                                                                padding:
+                                                                    const EdgeInsets
+                                                                            .only(
+                                                                        top: 1),
+                                                                child:
+                                                                    TextFormField(
+                                                                  controller:
+                                                                      _subject,
+                                                                  keyboardType:
+                                                                      TextInputType
+                                                                          .text,
+                                                                  decoration: new InputDecoration(
+                                                                      focusedBorder: InputBorder.none,
+                                                                      enabledBorder: InputBorder.none,
+                                                                      // errorBorder: ,
+                                                                      disabledBorder: InputBorder.none,
+                                                                      labelText: 'Subject  ',
+                                                                      labelStyle: TextStyle(color: Colors.grey),
+                                                                      contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                      hintText: 'Subject'),
+                                                                )),
+                                                          )),
+                                                    ),
+                                                    SizedBox(height: 70),
+                                                    Padding(
+                                                      padding:
+                                                          const EdgeInsets.only(
+                                                              bottom: 10.0),
+                                                      child: Container(
+                                                        height: 50,
+                                                        width: 200,
+                                                        child: RaisedButton(
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15)),
+                                                          color: Colors
+                                                              .deepPurple[900],
+                                                          onPressed: () {
+                                                            AuthRequests()
+                                                                .staffSignUp(
+                                                                    _staffName
+                                                                        .text,
+                                                                    _staffemail
+                                                                        .text,
+                                                                    _staffpass
+                                                                        .text,
+                                                                    _staffphone
+                                                                        .text,
+                                                                    _staffid
+                                                                        .text,
+                                                                    _subject
+                                                                        .text,
+                                                                    _imageFile,
+                                                                    context);
+                                                          },
+                                                          child: Text(
+                                                              "Add Staff",
+                                                              style: TextStyle(
+                                                                  fontSize: 20,
+                                                                  color: Colors
+                                                                      .white,
+                                                                  fontFamily:
+                                                                      'Metropolis')),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    child: Text(
+                                      'Add Staff',
+                                      style: TextStyle(
+                                          color: Colors.deepPurple[900]),
+                                    )),
+                              )),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Container(
+                          height: 50,
+                          child: Container(
+                              width: 200,
+                              height: 100,
+                              child: Card(
+                                elevation: 10,
+                                child: FlatButton(
+                                    onPressed: () {
+                                      showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          elevation: 4.0,
+                                          context: context,
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(20.0)),
+                                          ),
+                                          builder: (BuildContext bc) {
+                                            return SafeArea(
+                                              child: SingleChildScrollView(
+                                                reverse: true,
+                                                child: Container(
+                                                  height: 850,
+                                                  child: Column(
+                                                    children: [
+                                                      SizedBox(
+                                                        height: 20,
+                                                      ),
+                                                      GestureDetector(
+                                                          onTap: () {
+                                                            openImagePickerModal(
+                                                                context);
+                                                            print("hello");
+                                                          },
+                                                          child: Container(
+                                                            height: 100.0,
+                                                            width: 100.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
+                                                              color: Colors
+                                                                  .white
+                                                                  .withOpacity(
+                                                                      0.1),
+                                                              image:
+                                                                  DecorationImage(
+                                                                image: _imageFilei !=
+                                                                        null
+                                                                    ? FileImage(
+                                                                        _imageFilei)
+                                                                    : AssetImage(
+                                                                        'assets/logodp.png'),
+                                                                fit: BoxFit
+                                                                    .contain,
+                                                              ),
+                                                            ),
+                                                            child: Icon(
+                                                              Icons.add_a_photo,
+                                                              size: 43,
+                                                              color:
+                                                                  Colors.white,
+                                                            ),
+                                                          )),
+                                                      SingleChildScrollView(
+                                                        reverse: true,
+                                                        child: Padding(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .only(
+                                                                  left: 15,
+                                                                  right: 15),
+                                                          child: Container(
+                                                              height: 70,
+                                                              child: Card(
+                                                                shadowColor:
+                                                                    Colors
+                                                                        .black,
+                                                                color: Colors
+                                                                    .white,
+                                                                elevation: 4.0,
+                                                                child: Padding(
+                                                                    padding: const EdgeInsets
+                                                                            .only(
+                                                                        top: 1),
+                                                                    child:
+                                                                        TextFormField(
+                                                                      controller:
+                                                                          _studName,
+                                                                      keyboardType:
+                                                                          TextInputType
+                                                                              .text,
+                                                                      decoration: new InputDecoration(
+                                                                          focusedBorder: InputBorder.none,
+                                                                          enabledBorder: InputBorder.none,
+                                                                          // errorBorder: ,
+                                                                          disabledBorder: InputBorder.none,
+                                                                          labelText: 'Student Name',
+                                                                          labelStyle: TextStyle(color: Colors.grey),
+                                                                          contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                          hintText: 'Student Name'),
+                                                                    )),
+                                                              )),
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 15,
+                                                                right: 15),
+                                                        child: Container(
+                                                            height: 70,
+                                                            child: Card(
+                                                              shadowColor:
+                                                                  Colors.black,
+                                                              color:
+                                                                  Colors.white,
+                                                              elevation: 4.0,
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 1),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        _studid,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .text,
+                                                                    decoration: new InputDecoration(
+                                                                        focusedBorder: InputBorder.none,
+                                                                        enabledBorder: InputBorder.none,
+                                                                        // errorBorder: ,
+                                                                        disabledBorder: InputBorder.none,
+                                                                        labelText: 'StudentId',
+                                                                        labelStyle: TextStyle(color: Colors.grey),
+                                                                        contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                        hintText: 'StudentId'),
+                                                                  )),
+                                                            )),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 15,
+                                                                right: 15),
+                                                        child: Container(
+                                                            height: 70,
+                                                            child: Card(
+                                                              shadowColor:
+                                                                  Colors.black,
+                                                              color:
+                                                                  Colors.white,
+                                                              elevation: 4.0,
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 1),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        _class,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .text,
+                                                                    decoration: new InputDecoration(
+                                                                        focusedBorder: InputBorder.none,
+                                                                        enabledBorder: InputBorder.none,
+                                                                        // errorBorder: ,
+                                                                        disabledBorder: InputBorder.none,
+                                                                        labelText: 'Class',
+                                                                        labelStyle: TextStyle(color: Colors.grey),
+                                                                        contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                        hintText: 'Class'),
+                                                                  )),
+                                                            )),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 15,
+                                                                right: 15),
+                                                        child: Container(
+                                                            height: 70,
+                                                            child: Card(
+                                                              color:
+                                                                  Colors.white,
+                                                              elevation: 4.0,
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 1),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        _studpass,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .text,
+                                                                    obscureText:
+                                                                        true,
+                                                                    decoration: new InputDecoration(
+                                                                        focusedBorder: InputBorder.none,
+                                                                        enabledBorder: InputBorder.none,
+                                                                        // errorBorder: ,
+                                                                        disabledBorder: InputBorder.none,
+                                                                        labelText: 'Password',
+                                                                        labelStyle: TextStyle(color: Colors.grey),
+                                                                        contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                        hintText: 'Password'),
+                                                                  )),
+                                                            )),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 15,
+                                                                right: 15),
+                                                        child: Container(
+                                                            height: 70,
+                                                            child: Card(
+                                                              shadowColor:
+                                                                  Colors.black,
+                                                              color:
+                                                                  Colors.white,
+                                                              elevation: 4.0,
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 1),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        _age,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .datetime,
+                                                                    decoration: new InputDecoration(
+                                                                        focusedBorder: InputBorder.none,
+                                                                        enabledBorder: InputBorder.none,
+                                                                        // errorBorder: ,
+                                                                        disabledBorder: InputBorder.none,
+                                                                        labelText: 'Date of Birth',
+                                                                        labelStyle: TextStyle(color: Colors.grey),
+                                                                        contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                        hintText: 'Date of Birth'),
+                                                                  )),
+                                                            )),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 15,
+                                                                right: 15),
+                                                        child: Container(
+                                                            height: 70,
+                                                            child: Card(
+                                                              shadowColor:
+                                                                  Colors.black,
+                                                              color:
+                                                                  Colors.white,
+                                                              elevation: 4.0,
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 1),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        _studphone,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .number,
+                                                                    decoration: new InputDecoration(
+                                                                        focusedBorder: InputBorder.none,
+                                                                        enabledBorder: InputBorder.none,
+                                                                        // errorBorder: ,
+                                                                        disabledBorder: InputBorder.none,
+                                                                        labelText: 'PhoneNumber',
+                                                                        labelStyle: TextStyle(color: Colors.grey),
+                                                                        contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                        hintText: 'PhoneNumber'),
+                                                                  )),
+                                                            )),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 15,
+                                                                right: 15),
+                                                        child: Container(
+                                                            height: 70,
+                                                            child: Card(
+                                                              shadowColor:
+                                                                  Colors.black,
+                                                              color:
+                                                                  Colors.white,
+                                                              elevation: 4.0,
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 1),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        _studemail,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .emailAddress,
+                                                                    decoration: new InputDecoration(
+                                                                        focusedBorder: InputBorder.none,
+                                                                        enabledBorder: InputBorder.none,
+                                                                        // errorBorder: ,
+                                                                        disabledBorder: InputBorder.none,
+                                                                        labelText: 'email',
+                                                                        labelStyle: TextStyle(color: Colors.grey),
+                                                                        contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                        hintText: 'email'),
+                                                                  )),
+                                                            )),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                left: 15,
+                                                                right: 15),
+                                                        child: Container(
+                                                            height: 70,
+                                                            child: Card(
+                                                              shadowColor:
+                                                                  Colors.black,
+                                                              color:
+                                                                  Colors.white,
+                                                              elevation: 4.0,
+                                                              child: Padding(
+                                                                  padding: const EdgeInsets
+                                                                          .only(
+                                                                      top: 1),
+                                                                  child:
+                                                                      TextFormField(
+                                                                    controller:
+                                                                        _course,
+                                                                    keyboardType:
+                                                                        TextInputType
+                                                                            .text,
+                                                                    decoration: new InputDecoration(
+                                                                        focusedBorder: InputBorder.none,
+                                                                        enabledBorder: InputBorder.none,
+                                                                        // errorBorder: ,
+                                                                        disabledBorder: InputBorder.none,
+                                                                        labelText: 'Course',
+                                                                        labelStyle: TextStyle(color: Colors.grey),
+                                                                        contentPadding: EdgeInsets.only(left: 15, bottom: 11, top: 11, right: 15),
+                                                                        hintText: 'Course'),
+                                                                  )),
+                                                            )),
+                                                      ),
+                                                      SizedBox(height: 70),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .only(
+                                                                bottom: 10.0),
+                                                        child: Container(
+                                                          height: 50,
+                                                          width: 200,
+                                                          child: RaisedButton(
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            15)),
+                                                            color: Colors
+                                                                    .deepPurple[
+                                                                900],
+                                                            onPressed: () {
+                                                              AuthRequests()
+                                                                  .studentSignUp(
+                                                                      _studName
+                                                                          .text,
+                                                                      _studemail
+                                                                          .text,
+                                                                      _studpass
+                                                                          .text,
+                                                                      _studphone
+                                                                          .text,
+                                                                      _age,
+                                                                      _class,
+                                                                      _studid,
+                                                                      _course,
+                                                                      _imageFilei,
+                                                                      context);
+                                                            },
+                                                            child: Text(
+                                                                "Add Student",
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        20,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    fontFamily:
+                                                                        'Metropolis')),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          });
+                                    },
+                                    child: Text(
+                                      'Add Student',
+                                      style: TextStyle(
+                                          color: Colors.deepPurple[900]),
+                                    )),
+                              )),
+                        ),
+                      ],
+                    ),
+                    actions: [
+                      FlatButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'Cancel',
+                            style: TextStyle(color: Colors.deepPurple[900]),
+                          ))
+                    ],
+                  ),
+                );
+              });
         },
         child: Icon(
           Icons.add,
@@ -92,822 +959,4 @@ class _AdminHomeState extends State<AdminHome> {
       ),
     );
   }
-}
-
-void showAdd(BuildContext context) {
-  final _staffName = TextEditingController();
-  final _staffpass = TextEditingController();
-  final _staffid = TextEditingController();
-  final _staffemail = TextEditingController();
-  final _staffphone = TextEditingController();
-  final _subject = TextEditingController();
-  showDialog<void>(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return Container(
-          height: 300,
-          child: AlertDialog(
-            title: Column(
-              children: [
-                Container(
-                  height: 50,
-                  child: Container(
-                      width: 200,
-                      height: 100,
-                      child: Card(
-                        elevation: 10,
-                        child: FlatButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  elevation: 4.0,
-                                  context: context,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20.0)),
-                                  ),
-                                  builder: (BuildContext bc) {
-                                    return SingleChildScrollView(
-                                      reverse: true,
-                                      child: Container(
-                                        height: 800,
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 80,
-                                            ),
-                                            SingleChildScrollView(
-                                              reverse: true,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 15, right: 15),
-                                                child: Container(
-                                                    height: 70,
-                                                    child: Card(
-                                                      shadowColor: Colors.black,
-                                                      color: Colors.white,
-                                                      elevation: 4.0,
-                                                      child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(top: 1),
-                                                          child: TextFormField(
-                                                            controller:
-                                                                _staffName,
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .text,
-                                                            decoration:
-                                                                new InputDecoration(
-                                                                    focusedBorder:
-                                                                        InputBorder
-                                                                            .none,
-                                                                    enabledBorder:
-                                                                        InputBorder
-                                                                            .none,
-                                                                    // errorBorder: ,
-                                                                    disabledBorder:
-                                                                        InputBorder
-                                                                            .none,
-                                                                    labelText:
-                                                                        'Staff Name',
-                                                                    labelStyle: TextStyle(
-                                                                        color: Colors
-                                                                            .grey),
-                                                                    contentPadding: EdgeInsets.only(
-                                                                        left:
-                                                                            15,
-                                                                        bottom:
-                                                                            11,
-                                                                        top: 11,
-                                                                        right:
-                                                                            15),
-                                                                    hintText:
-                                                                        'Staff Name'),
-                                                          )),
-                                                    )),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          controller:
-                                                              _staffpass,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .text,
-                                                          obscureText: true,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'Password',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'Password'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    shadowColor: Colors.black,
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          controller: _staffid,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'StaffId',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'StaffId'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    shadowColor: Colors.black,
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          controller:
-                                                              _staffemail,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'email',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'email'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    shadowColor: Colors.black,
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          controller:
-                                                              _staffphone,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'PhoneNumber',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'PhoneNumber'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    shadowColor: Colors.black,
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          controller: _subject,
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .text,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'Subject  ',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'Subject'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            SizedBox(height: 70),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 10.0),
-                                              child: Container(
-                                                height: 50,
-                                                width: 200,
-                                                child: RaisedButton(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15)),
-                                                  color: Colors.deepPurple[900],
-                                                  onPressed: () {
-                                                    AuthRequests().staffSignUp(
-                                                        _staffName.text,
-                                                        _staffemail.text,
-                                                        _staffpass.text,
-                                                        _staffphone.text,
-                                                        _staffid.text,
-                                                        _subject.text,
-                                                        context);
-                                                  },
-                                                  child: Text("Add Staff",
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.white,
-                                                          fontFamily:
-                                                              'Metropolis')),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            },
-                            child: Text(
-                              'Add Staff',
-                              style: TextStyle(color: Colors.deepPurple[900]),
-                            )),
-                      )),
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Container(
-                  height: 50,
-                  child: Container(
-                      width: 200,
-                      height: 100,
-                      child: Card(
-                        elevation: 10,
-                        child: FlatButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  elevation: 4.0,
-                                  context: context,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                        top: Radius.circular(20.0)),
-                                  ),
-                                  builder: (BuildContext bc) {
-                                    return SingleChildScrollView(
-                                      reverse: true,
-                                      child: Container(
-                                        height: 800,
-                                        child: Column(
-                                          children: [
-                                            SizedBox(
-                                              height: 80,
-                                            ),
-                                            SingleChildScrollView(
-                                              reverse: true,
-                                              child: Padding(
-                                                padding: const EdgeInsets.only(
-                                                    left: 15, right: 15),
-                                                child: Container(
-                                                    height: 70,
-                                                    child: Card(
-                                                      shadowColor: Colors.black,
-                                                      color: Colors.white,
-                                                      elevation: 4.0,
-                                                      child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .only(top: 1),
-                                                          child: TextFormField(
-                                                            keyboardType:
-                                                                TextInputType
-                                                                    .text,
-                                                            decoration:
-                                                                new InputDecoration(
-                                                                    focusedBorder:
-                                                                        InputBorder
-                                                                            .none,
-                                                                    enabledBorder:
-                                                                        InputBorder
-                                                                            .none,
-                                                                    // errorBorder: ,
-                                                                    disabledBorder:
-                                                                        InputBorder
-                                                                            .none,
-                                                                    labelText:
-                                                                        'Student Name',
-                                                                    labelStyle: TextStyle(
-                                                                        color: Colors
-                                                                            .grey),
-                                                                    contentPadding: EdgeInsets.only(
-                                                                        left:
-                                                                            15,
-                                                                        bottom:
-                                                                            11,
-                                                                        top: 11,
-                                                                        right:
-                                                                            15),
-                                                                    hintText:
-                                                                        'Student Name'),
-                                                          )),
-                                                    )),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    shadowColor: Colors.black,
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'StudentId',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'StudentId'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .text,
-                                                          obscureText: true,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'Password',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'Password'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    shadowColor: Colors.black,
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'Date of Birth',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'Date of Birth'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    shadowColor: Colors.black,
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .number,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'PhoneNumber',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'PhoneNumber'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    shadowColor: Colors.black,
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .emailAddress,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'email',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'class'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  left: 15, right: 15),
-                                              child: Container(
-                                                  height: 70,
-                                                  child: Card(
-                                                    shadowColor: Colors.black,
-                                                    color: Colors.white,
-                                                    elevation: 4.0,
-                                                    child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(top: 1),
-                                                        child: TextFormField(
-                                                          keyboardType:
-                                                              TextInputType
-                                                                  .text,
-                                                          decoration:
-                                                              new InputDecoration(
-                                                                  focusedBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  enabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  // errorBorder: ,
-                                                                  disabledBorder:
-                                                                      InputBorder
-                                                                          .none,
-                                                                  labelText:
-                                                                      'Course',
-                                                                  labelStyle: TextStyle(
-                                                                      color: Colors
-                                                                          .grey),
-                                                                  contentPadding:
-                                                                      EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          bottom:
-                                                                              11,
-                                                                          top:
-                                                                              11,
-                                                                          right:
-                                                                              15),
-                                                                  hintText:
-                                                                      'Course'),
-                                                        )),
-                                                  )),
-                                            ),
-                                            SizedBox(height: 70),
-                                            Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 10.0),
-                                              child: Container(
-                                                height: 50,
-                                                width: 200,
-                                                child: RaisedButton(
-                                                  shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              15)),
-                                                  color: Colors.deepPurple[900],
-                                                  onPressed: () {},
-                                                  child: Text("Add Student",
-                                                      style: TextStyle(
-                                                          fontSize: 20,
-                                                          color: Colors.white,
-                                                          fontFamily:
-                                                              'Metropolis')),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  });
-                            },
-                            child: Text(
-                              'Add Student',
-                              style: TextStyle(color: Colors.deepPurple[900]),
-                            )),
-                      )),
-                ),
-              ],
-            ),
-            actions: [
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: Text(
-                    'Cancel',
-                    style: TextStyle(color: Colors.deepPurple[900]),
-                  ))
-            ],
-          ),
-        );
-      });
 }

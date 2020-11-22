@@ -1,4 +1,11 @@
+import 'package:dpis_app/staff/staff_model.dart';
+import 'package:dpis_app/student/sharedprf.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'option_pg.dart';
+
+StaffData staffLoad = StaffData();
 
 class Drawer2Screen extends StatefulWidget {
   @override
@@ -6,6 +13,33 @@ class Drawer2Screen extends StatefulWidget {
 }
 
 class _Drawer2ScreenState extends State<Drawer2Screen> {
+  loadSharedPrefs() async {
+    try {
+      StaffData staff =
+          StaffData.fromJson(await SharedPref().read("staffData"));
+      print("Data loaded");
+
+      // Scaffold.of(context).showSnackBar(SnackBar(
+      //     content: new Text("Loaded!"),
+      //     duration: const Duration(milliseconds: 10)));
+      setState(() {
+        staffLoad = staff;
+      });
+    } catch (Excepetion) {
+      print(Excepetion);
+      // Scaffold.of(context).showSnackBar(SnackBar(
+      //     content: new Text("Nothing found!"),
+      //     duration: const Duration(milliseconds: 10)));
+    }
+  }
+
+  @override
+  void initState() {
+    loadSharedPrefs();
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -13,9 +47,12 @@ class _Drawer2ScreenState extends State<Drawer2Screen> {
         children: <Widget>[
           UserAccountsDrawerHeader(
               decoration: BoxDecoration(color: Colors.red[700]),
-              accountName: Text('Mr Darlington'),
-              currentAccountPicture: CircleAvatar(),
-              accountEmail: Text('STAFF')),
+              accountName: Text("${staffLoad.staffName}"),
+              currentAccountPicture: CircleAvatar(
+                backgroundColor: Colors.red[700],
+                backgroundImage: NetworkImage(staffLoad.image),
+              ),
+              accountEmail: Text('${staffLoad.email}')),
           DrawerListTile(
             iconData: Icons.receipt,
             title: 'Place result',
@@ -38,7 +75,7 @@ class _Drawer2ScreenState extends State<Drawer2Screen> {
                   context: (context),
                   builder: (BuildContext) {
                     return Container(
-                      height: 220,
+                      height: 250,
                       child: Column(
                         children: [
                           SizedBox(height: 15),
@@ -121,6 +158,30 @@ class _Drawer2ScreenState extends State<Drawer2Screen> {
                       ),
                     );
                   });
+            },
+          ),
+          DrawerListTile(
+            iconData: Icons.exit_to_app,
+            title: 'Sign Out',
+            onTilePressed: () async {
+              SharedPreferences sharedPreferences =
+                  await SharedPreferences.getInstance();
+
+              await sharedPreferences.clear();
+              await sharedPreferences.remove("staffData");
+              await sharedPreferences.setString("staffData", null);
+              // setState(() {
+              //   vendorLoad.vendorId = null;
+              //   vendorLoad.vendorNumber = null;
+              //   vendorLoad.vendorName = null;
+              //   vendorLoad.vendorEmail = null;
+              // });
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (BuildContext ctx) => Firstpg(),
+                ),
+              );
             },
           ),
           SizedBox(height: 260),

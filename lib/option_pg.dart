@@ -36,129 +36,142 @@ class _FirstpgState extends State<Firstpg> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Colors.deepPurple[900],
-          onPressed: () {
-            showModalBottomSheet(
-                isScrollControlled: true,
-                elevation: 4.0,
-                context: context,
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: Radius.circular(20.0)),
-                ),
-                builder: (BuildContext bc) {
-                  return SingleChildScrollView(
-                    reverse: true,
-                    child: Container(
-                      height: 500,
-                      child: Column(
-                        children: [
-                          SizedBox(height: 20),
-                          Text(
-                            "ONLY FOR ADMINS",
-                            style: TextStyle(fontSize: 20),
-                          ),
-                          SizedBox(
-                            height: 80,
-                          ),
-                          SingleChildScrollView(
-                            reverse: true,
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 15, right: 15),
-                              child: Container(
-                                  height: 70,
-                                  child: Card(
-                                    shadowColor: Colors.black,
-                                    color: Colors.white,
-                                    elevation: 4.0,
-                                    child: Padding(
-                                        padding: const EdgeInsets.only(top: 1),
-                                        child: TextFormField(
-                                          controller: _emailController,
-                                          keyboardType: TextInputType.text,
-                                          decoration: new InputDecoration(
-                                              focusedBorder: InputBorder.none,
-                                              enabledBorder: InputBorder.none,
-                                              // errorBorder: ,
-                                              disabledBorder: InputBorder.none,
-                                              labelText: 'AdminId',
-                                              labelStyle:
-                                                  TextStyle(color: Colors.grey),
-                                              contentPadding: EdgeInsets.only(
-                                                  left: 15,
-                                                  bottom: 11,
-                                                  top: 11,
-                                                  right: 15),
-                                              hintText: 'AdminId'),
-                                        )),
-                                  )),
-                            ),
-                          ),
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height / 30),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 15, right: 15),
-                            child: Container(
-                                height: 70,
-                                child: Card(
-                                  color: Colors.white,
-                                  elevation: 4.0,
-                                  child: Padding(
-                                      padding: const EdgeInsets.only(top: 1),
-                                      child: TextFormField(
-                                        controller: _passwordController,
-                                        keyboardType: TextInputType.text,
-                                        obscureText: true,
-                                        decoration: new InputDecoration(
-                                            focusedBorder: InputBorder.none,
-                                            enabledBorder: InputBorder.none,
-                                            // errorBorder: ,
-                                            disabledBorder: InputBorder.none,
-                                            labelText: 'Password',
-                                            labelStyle:
-                                                TextStyle(color: Colors.grey),
-                                            contentPadding: EdgeInsets.only(
-                                                left: 15,
-                                                bottom: 11,
-                                                top: 11,
-                                                right: 15),
-                                            hintText: 'Password'),
-                                      )),
-                                )),
-                          ),
-                          SizedBox(height: 70),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child: Container(
-                              height: 50,
-                              width: 200,
-                              child: RaisedButton(
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15)),
-                                color: Colors.deepPurple[900],
-                                onPressed: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => AdminHome()));
-                                },
-                                child: Text("Login",
-                                    style: TextStyle(
-                                        fontSize: 20,
-                                        color: Colors.white,
-                                        fontFamily: 'Metropolis')),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
+      floatingActionButton: splash
+          ? FloatingActionButton.extended(
+              backgroundColor: Colors.deepPurple[900],
+              onPressed: () {
+                showModalBottomSheet(
+                    isScrollControlled: true,
+                    elevation: 4.0,
+                    context: context,
+                    shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20.0)),
                     ),
-                  );
-                });
-          },
-          label: Row(children: [Icon(Icons.verified_user), Text("ADMIN")])),
+                    builder: (BuildContext bc) {
+                      return SingleChildScrollView(
+                        reverse: true,
+                        child: Container(
+                          height: 500,
+                          child: Column(
+                            children: [
+                              SizedBox(height: 20),
+                              Text(
+                                "ONLY FOR ADMINS",
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              SizedBox(
+                                height: 80,
+                              ),
+                              SingleChildScrollView(
+                                reverse: true,
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15, right: 15),
+                                  child: Container(
+                                      height: 70,
+                                      child: Card(
+                                        shadowColor: Colors.black,
+                                        color: Colors.white,
+                                        elevation: 4.0,
+                                        child: Padding(
+                                            padding:
+                                                const EdgeInsets.only(top: 1),
+                                            child: TextFormField(
+                                              controller: _emailController,
+                                              keyboardType: TextInputType.text,
+                                              decoration: new InputDecoration(
+                                                  focusedBorder:
+                                                      InputBorder.none,
+                                                  enabledBorder:
+                                                      InputBorder.none,
+                                                  // errorBorder: ,
+                                                  disabledBorder:
+                                                      InputBorder.none,
+                                                  labelText: 'AdminId',
+                                                  labelStyle: TextStyle(
+                                                      color: Colors.grey),
+                                                  contentPadding:
+                                                      EdgeInsets.only(
+                                                          left: 15,
+                                                          bottom: 11,
+                                                          top: 11,
+                                                          right: 15),
+                                                  hintText: 'AdminId'),
+                                            )),
+                                      )),
+                                ),
+                              ),
+                              SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 30),
+                              Padding(
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                child: Container(
+                                    height: 70,
+                                    child: Card(
+                                      color: Colors.white,
+                                      elevation: 4.0,
+                                      child: Padding(
+                                          padding:
+                                              const EdgeInsets.only(top: 1),
+                                          child: TextFormField(
+                                            controller: _passwordController,
+                                            keyboardType: TextInputType.text,
+                                            obscureText: true,
+                                            decoration: new InputDecoration(
+                                                focusedBorder: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                                // errorBorder: ,
+                                                disabledBorder:
+                                                    InputBorder.none,
+                                                labelText: 'Password',
+                                                labelStyle: TextStyle(
+                                                    color: Colors.grey),
+                                                contentPadding: EdgeInsets.only(
+                                                    left: 15,
+                                                    bottom: 11,
+                                                    top: 11,
+                                                    right: 15),
+                                                hintText: 'Password'),
+                                          )),
+                                    )),
+                              ),
+                              SizedBox(height: 70),
+                              Padding(
+                                padding: const EdgeInsets.only(bottom: 10.0),
+                                child: Container(
+                                  height: 50,
+                                  width: 200,
+                                  child: RaisedButton(
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    color: Colors.deepPurple[900],
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  AdminHome()));
+                                    },
+                                    child: Text("Login",
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            color: Colors.white,
+                                            fontFamily: 'Metropolis')),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+              },
+              label: Row(children: [Icon(Icons.verified_user), Text("ADMIN")]))
+          : SizedBox(),
       body: SingleChildScrollView(
         child: Column(children: [
           Padding(
@@ -391,7 +404,7 @@ class _FirstpgState extends State<Firstpg> {
                                                     top: 1),
                                                 child: TextFormField(
                                                   controller: _staffId,
-                                                  maxLines: 2,
+                                                  maxLines: 1,
                                                   keyboardType:
                                                       TextInputType.text,
                                                   decoration:

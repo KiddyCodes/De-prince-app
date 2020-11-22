@@ -1,5 +1,6 @@
 import 'dart:convert';
-
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:dpis_app/Widgets/loader.dart';
 import 'package:dpis_app/core/api/api.dart';
 import 'package:dpis_app/core/api/endpoints.dart';
@@ -74,10 +75,75 @@ class AuthRequests {
     }
   }
 
+  Future<String> studentSignUp(String name, email, password, phonenumber, age,
+      clss, vcode, course, File staffimg, context) async {
+    var dio = Dio();
+    var _loader = Loader();
+    var url = Api.$BASE_URL + Endpoints.studentSignup;
+
+    // if (name == "" &&
+    //     email == "" &&
+    //     password == "" &&
+    //     phonenumber == "" &&
+    //     subject == "" &&
+    //     staffId == "") {
+    //   return;
+    // }
+    try {
+      _loader.show(context, 'Please wait...');
+      var filename = staffimg.path.split('/').last;
+      FormData formData = FormData.fromMap({
+        'studentName': name,
+        'email': email,
+        'password': password,
+        'phonenumber': phonenumber,
+        'vcode': vcode,
+        'Course': course,
+        'age': age,
+        'class': clss,
+        "image": await MultipartFile.fromFile(staffimg.path, filename: filename)
+      });
+      print(formData.fields.toString());
+      var jsonResponse;
+      var response = await dio.post(url, data: formData);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print(response.statusCode);
+        _loader.hide(context);
+        // jsonResponse = json.decode(response.data);
+        // if (jsonResponse != null) {
+        showToast('Student Account created successfully, Log In', Colors.green);
+        // sharedPreferences.setString("firstToken", jsonResponse['result']);
+
+      } else if (response.statusCode == 403) {
+        showToast('Student already exist!', Colors.red);
+        _loader.hide(context);
+        print(response.data);
+      } else if (response.statusCode == 503) {
+        showToast('Internal Server Error, please try again later', Colors.red);
+        _loader.hide(context);
+        print(response.data);
+      } else {
+        print(response.statusCode);
+        print(jsonResponse);
+        showToast('Error encountered, please try again', Colors.red);
+        _loader.hide(context);
+        print(response.data);
+      }
+      // print(userToken);
+    } catch (e) {
+      _loader.hide(context);
+
+      // print(e);
+      showToast(e.toString(), Colors.red);
+    }
+  }
+
+  //------------ STAFF AUTH--------------//
+
   // ignore: missing_return
   Future<StaffData> staffSignIn(String staffId, password, context) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    var url = Api.$BASE_URL + Endpoints.studentLogin;
+    var url = Api.$BASE_URL + Endpoints.staffLogin;
     _loader.show(context, 'Please wait...');
 
     // if (email == "" && password == "") {
@@ -96,10 +162,11 @@ class AuthRequests {
         SharedPref().save("staffData", jsonResponse);
 
         //save response
-        await sharedPreferences.setString("userToken", jsonResponse["token"]);
+        await sharedPreferences.setString("staffToken", jsonResponse["token"]);
         await sharedPreferences.setString(
             "staffName", jsonResponse["staffName"]);
         await sharedPreferences.setString("email", jsonResponse["email"]);
+        await sharedPreferences.setString("image", jsonResponse["image"]);
         await sharedPreferences.setString(
             "phoneNumber", jsonResponse["phonenumber"]);
         print(jsonResponse);
@@ -110,7 +177,7 @@ class AuthRequests {
         showToast('Login Successful', Colors.green);
       }
     } else if (response.statusCode == 403) {
-      showToast('Student does not exist!', Colors.red);
+      showToast('Staff does not exist!', Colors.red);
       _loader.hide(context);
       print(response.body);
     } else if (response.statusCode == 404) {
@@ -128,54 +195,64 @@ class AuthRequests {
     }
   }
 
-  staffSignUp(String name, email, password, phonenumber, staffId, subject,
-      context) async {
+  Future<String> staffSignUp(String name, email, password, phonenumber, staffId,
+      subject, File staffimg, context) async {
+    var dio = Dio();
     var _loader = Loader();
     var url = Api.$BASE_URL + Endpoints.staffSignup;
 
-    if (name == "" &&
-        email == "" &&
-        password == "" &&
-        phonenumber == "" &&
-        subject == "" &&
-        staffId == "") {
-      return;
-    }
-    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-
-    _loader.show(context, 'Please wait...');
-    Map data = {
-      'staffName': name,
-      'email': email,
-      'password': password,
-      'phonenumber': phonenumber,
-      'staffId': staffId,
-      'subject': subject
-    };
-    var jsonResponse;
-    var response = await http.post(url, body: data);
-    if (response.statusCode == 200 || response.statusCode == 201) {
-      _loader.hide(context);
-      jsonResponse = json.decode(response.body);
-      if (jsonResponse != null) {
-        print(jsonResponse);
-        showToast('Student Account created successfully, Log In', Colors.green);
+    // if (name == "" &&
+    //     email == "" &&
+    //     password == "" &&
+    //     phonenumber == "" &&
+    //     subject == "" &&
+    //     staffId == "") {
+    //   return;
+    // }
+    try {
+      _loader.show(context, 'Please wait...');
+      var filename = staffimg.path.split('/').last;
+      FormData formData = FormData.fromMap({
+        'staffName': name,
+        'email': email,
+        'password': password,
+        'phonenumber': phonenumber,
+        'staffId': staffId,
+        'subject': subject,
+        "image": await MultipartFile.fromFile(staffimg.path, filename: filename)
+      });
+      print(formData.fields.toString());
+      var jsonResponse;
+      var response = await dio.post(url, data: formData);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        print(response.statusCode);
+        _loader.hide(context);
+        // jsonResponse = json.decode(response.data);
+        // if (jsonResponse != null) {
+        showToast('Staff Account created successfully, Log In', Colors.green);
         // sharedPreferences.setString("firstToken", jsonResponse['result']);
 
       } else if (response.statusCode == 403) {
-        showToast('Student already exist!', Colors.red);
+        showToast('Staff already exist!', Colors.red);
         _loader.hide(context);
-        print(response.body);
+        print(response.data);
       } else if (response.statusCode == 503) {
         showToast('Internal Server Error, please try again later', Colors.red);
         _loader.hide(context);
-        print(response.body);
+        print(response.data);
       } else {
+        print(response.statusCode);
+        print(jsonResponse);
         showToast('Error encountered, please try again', Colors.red);
         _loader.hide(context);
-        print(response.body);
+        print(response.data);
       }
       // print(userToken);
+    } catch (e) {
+      _loader.hide(context);
+
+      // print(e);
+      showToast(e.toString(), Colors.red);
     }
   }
 }
