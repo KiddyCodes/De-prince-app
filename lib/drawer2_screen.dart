@@ -54,11 +54,6 @@ class _Drawer2ScreenState extends State<Drawer2Screen> {
               ),
               accountEmail: Text('${staffLoad.email}')),
           DrawerListTile(
-            iconData: Icons.receipt,
-            title: 'Place result',
-            onTilePressed: () {},
-          ),
-          DrawerListTile(
             iconData: Icons.announcement,
             title: 'Information',
             onTilePressed: () {},
