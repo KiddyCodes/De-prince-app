@@ -164,7 +164,7 @@ class _StaffHomeState extends State<StaffHome> {
                     child: Center(
                       child: Column(children: [
                         YMargin(35),
-                        Icon(Icons.meeting_room),
+                        Icon(Icons.mail_outline),
                         Text('Meeting')
                       ]),
                     ),
