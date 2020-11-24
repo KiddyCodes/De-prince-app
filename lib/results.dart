@@ -1,5 +1,12 @@
+import 'package:dpis_app/jss2.dart';
+import 'package:dpis_app/jss3.dart';
+import 'package:dpis_app/ss2.dart';
+import 'package:dpis_app/ss3.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+
+import 'jss1.dart';
+import 'ss1.dart';
 
 class Results extends StatefulWidget {
   @override
@@ -137,7 +144,12 @@ class _ResultsState extends State<Results> {
                         child: Card(
                           elevation: 10,
                           child: FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SS1()));
+                              },
                               child: Text(
                                 'SS1',
                                 style: TextStyle(color: Colors.deepPurple[900]),
@@ -155,7 +167,12 @@ class _ResultsState extends State<Results> {
                         child: Card(
                           elevation: 10,
                           child: FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SS2()));
+                              },
                               child: Text(
                                 'SS2',
                                 style: TextStyle(color: Colors.deepPurple[900]),
@@ -173,7 +190,12 @@ class _ResultsState extends State<Results> {
                         child: Card(
                           elevation: 10,
                           child: FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => SS3()));
+                              },
                               child: Text(
                                 'SS3',
                                 style: TextStyle(color: Colors.deepPurple[900]),
@@ -215,7 +237,12 @@ class _ResultsState extends State<Results> {
                         child: Card(
                           elevation: 10,
                           child: FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => JSS1()));
+                              },
                               child: Text(
                                 'JSS1',
                                 style: TextStyle(color: Colors.deepPurple[900]),
@@ -233,7 +260,12 @@ class _ResultsState extends State<Results> {
                         child: Card(
                           elevation: 10,
                           child: FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => JSS2()));
+                              },
                               child: Text(
                                 'JSS2',
                                 style: TextStyle(color: Colors.deepPurple[900]),
@@ -251,7 +283,12 @@ class _ResultsState extends State<Results> {
                         child: Card(
                           elevation: 10,
                           child: FlatButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => JSS3()));
+                              },
                               child: Text(
                                 'JSS3',
                                 style: TextStyle(color: Colors.deepPurple[900]),

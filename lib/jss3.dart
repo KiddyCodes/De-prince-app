@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-class SS1 extends StatefulWidget {
+class JSS3 extends StatefulWidget {
   @override
-  _SS1State createState() => _SS1State();
+  _JSS3State createState() => _JSS3State();
 }
 
-class _SS1State extends State<SS1> {
+class _JSS3State extends State<JSS3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,7 +19,7 @@ class _SS1State extends State<SS1> {
                     bottomLeft: Radius.circular(10),
                     bottomRight: Radius.circular(10))),
             child: Card(
-              child: Text("SS1 Results",
+              child: Text("JSS3 Results",
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
