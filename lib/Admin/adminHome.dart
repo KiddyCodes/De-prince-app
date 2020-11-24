@@ -842,10 +842,13 @@ class _AdminHomeState extends State<AdminHome> {
                                                                           .text,
                                                                       _studphone
                                                                           .text,
-                                                                      _age,
-                                                                      _class,
-                                                                      _studid,
-                                                                      _course,
+                                                                      _age.text,
+                                                                      _class
+                                                                          .text,
+                                                                      _studid
+                                                                          .text,
+                                                                      _course
+                                                                          .text,
                                                                       _imageFilei,
                                                                       context);
                                                             },

@@ -19,7 +19,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
           UserAccountsDrawerHeader(
               decoration: BoxDecoration(color: Colors.deepPurple[900]),
               accountName: Text("${studentLoad.studentName}"),
-              currentAccountPicture: CircleAvatar(),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(studentLoad.studentImage),
+              ),
               accountEmail: Text("${studentLoad.studentEmail}")),
           DrawerListTile(
             iconData: Icons.receipt,

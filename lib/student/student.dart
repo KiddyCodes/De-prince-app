@@ -6,6 +6,7 @@ class UserData {
   String studentEmail;
   String studentCourse;
   String studentClass;
+  String studentImage;
   String vcode;
 
   UserData();
@@ -18,7 +19,8 @@ class UserData {
         studentNumber = json['phonenumber'],
         studentName = json['studentName'],
         vcode = json['vcode'],
-        studentCourse = json['Course'];
+        studentCourse = json['Course'],
+        studentImage = json['image'];
 
   Map<String, Object> toJson() => {
         'token': token,
@@ -27,6 +29,7 @@ class UserData {
         'phonenumber': studentNumber,
         'studentName': studentName,
         'Course': studentCourse,
+        'image': studentImage,
         // 'vendorId': userId,
         'vcode': vcode
       };
