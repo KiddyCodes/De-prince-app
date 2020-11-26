@@ -134,6 +134,7 @@ class _ResultsState extends State<Results> {
           return Container(
             height: 300,
             child: AlertDialog(
+              elevation: 10,
               title: Column(
                 children: [
                   Container(
@@ -227,6 +228,7 @@ class _ResultsState extends State<Results> {
           return Container(
             height: 300,
             child: AlertDialog(
+              elevation: 10,
               title: Column(
                 children: [
                   Container(

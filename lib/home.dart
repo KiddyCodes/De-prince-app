@@ -134,7 +134,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   width: 400,
                   height: 400,
                   child: Card(
-                    elevation: 3,
+                    elevation: 5,
                     child: Column(
                       children: [
                         Container(
@@ -144,13 +144,13 @@ class _HomeScreenState extends State<HomeScreen> {
                               borderRadius: BorderRadius.only(
                                   bottomRight: Radius.circular(8),
                                   bottomLeft: Radius.circular(8)),
-                              color: Colors.grey[200]),
+                              color: Colors.grey[100]),
                           child: ListTile(
                             title: Text(
                               'Student Information',
                               style: TextStyle(
                                   fontSize: 20,
-                                  color: Colors.black,
+                                  color: Colors.deepPurple[900],
                                   fontWeight: FontWeight.bold),
                             ),
                           ),
