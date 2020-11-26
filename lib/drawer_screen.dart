@@ -1,4 +1,5 @@
 import 'package:dpis_app/home.dart';
+import 'package:dpis_app/notes.dart';
 import 'package:dpis_app/results.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,6 +30,14 @@ class _DrawerScreenState extends State<DrawerScreen> {
             onTilePressed: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Results()));
+            },
+          ),
+          DrawerListTile(
+            iconData: Icons.receipt,
+            title: 'View notes',
+            onTilePressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Notes()));
             },
           ),
           DrawerListTile(

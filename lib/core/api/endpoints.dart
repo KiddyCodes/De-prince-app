@@ -9,4 +9,9 @@ class Endpoints {
   //auth endpoints
   static final String staffLogin = 'authenticateStaff';
   static final String staffSignup = 'addstaff';
+  static final String uploadnotes = 'uploadnotes';
+
+  //-------------ADMIN SIDE
+  static final String getstudnum = 'getStudNum';
+  static final String getstaffnum = 'getStaffNum';
 }

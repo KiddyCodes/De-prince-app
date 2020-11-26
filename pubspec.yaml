@@ -40,6 +40,10 @@ dependencies:
   google_fonts:
   shared_preferences:
   image_picker:
+  memoryfilepicker:
+  permission_handler: ^5.0.1+1
+  path_provider:
+  gallery_saver:
 
 dev_dependencies:
   flutter_test:
