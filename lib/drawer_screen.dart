@@ -33,8 +33,16 @@ class _DrawerScreenState extends State<DrawerScreen> {
             },
           ),
           DrawerListTile(
-            iconData: Icons.receipt,
+            iconData: Icons.notes,
             title: 'View notes',
+            onTilePressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Notes()));
+            },
+          ),
+          DrawerListTile(
+            iconData: Icons.message_outlined,
+            title: 'Message',
             onTilePressed: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Notes()));

@@ -14,4 +14,5 @@ class Endpoints {
   //-------------ADMIN SIDE
   static final String getstudnum = 'getStudNum';
   static final String getstaffnum = 'getStaffNum';
+  static final String postresult = 'uploadresult';
 }

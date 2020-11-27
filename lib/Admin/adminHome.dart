@@ -3,11 +3,14 @@ import 'dart:io';
 import 'package:dpis_app/Admin/getstudnum_modesl.dart';
 import 'package:dpis_app/Admin/getstudnumreq.dart';
 import 'package:dpis_app/requests/authRequests.dart';
+import 'package:dpis_app/utils/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import '../notification.dart';
 import '../staffhome.dart';
+import 'getstffnummodel.dart';
 
 class AdminHome extends StatefulWidget {
   @override
@@ -47,15 +50,23 @@ class _AdminHomeState extends State<AdminHome> {
   }
 
   Future<GetStudNumModel> _future;
+  Future<GetStaffNumModel> _future2;
   @override
   void initState() {
     _future = Getnumreq().getStudNum();
+    _future2 = Getnumreq().getStaffNum();
     super.initState();
   }
 
   Future<GetStudNumModel> _getData() async {
     setState(() {
       _future = Getnumreq().getStudNum();
+    });
+  }
+
+  Future<GetStaffNumModel> _getData2() async {
+    setState(() {
+      _future2 = Getnumreq().getStaffNum();
     });
   }
 
@@ -998,7 +1009,7 @@ class _AdminHomeState extends State<AdminHome> {
                                 _future = Getnumreq().getStudNum();
                               });
                             },
-                            child: Text('You have no notes',
+                            child: Text('null',
                                 style: TextStyle(color: Colors.white)),
                           ),
                         ),
@@ -1074,28 +1085,183 @@ class _AdminHomeState extends State<AdminHome> {
                           ),
                           Padding(
                             padding:
-                                const EdgeInsets.only(left: 40.0, right: 40),
+                                const EdgeInsets.only(left: 80.0, right: 40),
                             child: Row(
                               children: [
-                                Column(
-                                  children: [
-                                    Text(
-                                      snapshot.data.result.toString(),
-                                      style: TextStyle(
-                                          fontSize: 30,
-                                          color: Colors.deepPurple[700]),
-                                    ),
-                                    Text(
-                                      "Students",
-                                      style: TextStyle(
-                                          fontSize: 20,
-                                          color: Colors.deepPurple[700]),
-                                    )
-                                  ],
-                                )
+                                CircularPercentIndicator(
+                                  radius: 70.0,
+                                  lineWidth: 9.0,
+                                  animation: true,
+                                  percent: 0.5,
+                                  center: new Text(
+                                    snapshot.data.result.toString(),
+                                    style: new TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20.0),
+                                  ),
+                                  footer: new Text(
+                                    "Student",
+                                    style: new TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 17.0),
+                                  ),
+                                  circularStrokeCap: CircularStrokeCap.round,
+                                  progressColor: Colors.deepPurple[700],
+                                ),
+                                XMargin(90),
+                                FutureBuilder<GetStaffNumModel>(
+                                    future: _future2,
+                                    builder: (context, snapshot) {
+                                      switch (snapshot.connectionState) {
+                                        case ConnectionState.none:
+                                          return Center(
+                                            child: RaisedButton(
+                                              onPressed: () {
+                                                setState(() {
+                                                  _future2 =
+                                                      Getnumreq().getStaffNum();
+                                                });
+                                              },
+                                              child: Text('Retry'),
+                                            ),
+                                          );
+                                        case ConnectionState.waiting:
+                                          return Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        case ConnectionState.active:
+                                          return Text('');
+                                        case ConnectionState.done:
+                                          if (snapshot.hasError) {
+                                            return Center(
+                                              child: RaisedButton(
+                                                onPressed: () {
+                                                  setState(() {
+                                                    _future2 = Getnumreq()
+                                                        .getStaffNum();
+                                                  });
+                                                },
+                                                child: Text('Retry'),
+                                              ),
+                                            );
+                                          } else if (snapshot.data == null) {
+                                            return Center(
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    2,
+                                                child: Center(
+                                                  child: RaisedButton(
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10)),
+                                                    color: primcolor,
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        _future2 = Getnumreq()
+                                                            .getStaffNum();
+                                                      });
+                                                    },
+                                                    child: Text(
+                                                        'Connection Problem, try again',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          } else if (snapshot
+                                              .data.result.isNaN) {
+                                            return Center(
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height /
+                                                    2,
+                                                child: Center(
+                                                  child: RaisedButton(
+                                                    elevation: 0,
+                                                    shape:
+                                                        RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        6)),
+                                                    color: primcolor,
+                                                    onPressed: () {
+                                                      setState(() {
+                                                        _future2 = Getnumreq()
+                                                            .getStaffNum();
+                                                      });
+                                                    },
+                                                    child: Text('null',
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white)),
+                                                  ),
+                                                ),
+                                              ),
+                                            );
+                                          } else {
+                                            return RefreshIndicator(
+                                              onRefresh: _getData2,
+                                              child: CircularPercentIndicator(
+                                                radius: 70.0,
+                                                lineWidth: 9.0,
+                                                animation: true,
+                                                percent: 0.5,
+                                                center: new Text(
+                                                  snapshot.data.result
+                                                      .toString(),
+                                                  style: new TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20.0),
+                                                ),
+                                                footer: new Text(
+                                                  "Staff",
+                                                  style: new TextStyle(
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 17.0),
+                                                ),
+                                                circularStrokeCap:
+                                                    CircularStrokeCap.round,
+                                                progressColor:
+                                                    Colors.deepPurple[700],
+                                              ),
+                                            );
+                                            // Column(children: [
+                                            //   Row(
+                                            //     children: [
+                                            //       Column(
+                                            //         children: [
+
+                                            //           Text(
+                                            //             "Staffs",
+                                            //             style: TextStyle(
+                                            //                 fontSize:
+                                            //                     20,
+                                            //                 color: Colors
+                                            //                         .deepPurple[
+                                            //                     700]),
+                                            //           )
+                                            //         ],
+                                            //       )
+                                            //     ],
+                                            //   ),
+                                            // ])));
+                                          }
+                                      }
+                                    })
                               ],
                             ),
-                          )
+                          ),
                         ],
                       ),
                     );
