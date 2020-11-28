@@ -1,3 +1,4 @@
+import 'package:dpis_app/drawer2_screen.dart';
 import 'package:dpis_app/drawer_screen.dart';
 import 'package:dpis_app/notification.dart';
 import 'package:dpis_app/student/sharedprf.dart';
@@ -52,186 +53,199 @@ class _HomeScreenState extends State<HomeScreen> {
       drawerEnableOpenDragGesture: true,
       key: _scaffoldKey,
       body: SingleChildScrollView(
-        child: Stack(children: <Widget>[
-          Container(
-              height: MediaQuery.of(context).size.height / 2,
-              child: Stack(children: <Widget>[
-                ClipPath(
-                    clipper: WaveClipperOne(),
-                    child: Container(
-                      height: 420,
-                      width: 500,
-                      color: Colors.deepPurple[900],
-                      child: Column(children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 70),
-                          child: Container(
-                            child: Row(children: [
-                              Container(
-                                  alignment: Alignment.topLeft,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        top: 50, left: 20),
-                                    child: Text(
-                                      "Hi, ${studentLoad.studentName}",
-                                      style: TextStyle(
-                                          fontSize: 30, color: Colors.white),
+          child: Stack(children: <Widget>[
+        Column(children: [
+          ClipPath(
+              clipper: WaveClipperOne(),
+              child: Container(
+                height: 420,
+                width: 500,
+                color: Colors.deepPurple[900],
+                child: Column(
+                  children: [
+                    Padding(
+                        padding: const EdgeInsets.only(top: 50),
+                        child: Container(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Column(children: [
+                                      IconButton(
+                                        icon: Icon(Icons.menu,
+                                            color: Colors.white),
+                                        onPressed: () {
+                                          print("your menu action here");
+                                          _scaffoldKey.currentState
+                                              .openDrawer();
+                                        },
+                                      ),
+                                    ]),
+                                    Padding(
+                                      padding: const EdgeInsets.only(left: 320),
+                                      child: Container(
+                                        height: 40,
+                                        width: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                            color: Colors.white),
+                                        child: Center(
+                                          child: IconButton(
+                                              icon: Icon(
+                                                Icons.notifications,
+                                                color: Colors.deepPurple[900],
+                                              ),
+                                              onPressed: () {
+                                                Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            Notifications()));
+                                              }),
+                                        ),
+                                      ),
                                     ),
-                                  )),
-                            ]),
-                          ),
-                        ),
-                      ]),
-                    )),
-                Positioned(
-                  top: 40.0,
-                  left: 0.0,
-                  right: MediaQuery.of(context).size.width / 1.39,
-                  child: Card(
-                    child: DecoratedBox(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          border: Border.all(
-                              color: Colors.grey.withOpacity(0.5), width: 1.0),
-                          color: Colors.white),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            icon: Icon(
-                              Icons.menu,
-                              color: Colors.deepPurple[900],
+                                  ],
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 150),
+                                  child: Text(
+                                    "Hi, ${studentLoad.studentName}",
+                                    style: TextStyle(
+                                        fontSize: 30, color: Colors.white),
+                                  ),
+                                ),
+                              ],
                             ),
-                            onPressed: () {
-                              print("your menu action here");
-                              _scaffoldKey.currentState.openDrawer();
-                            },
                           ),
-                          IconButton(
-                              icon: Icon(
-                                Icons.notifications,
-                                color: Colors.deepPurple[900],
-                              ),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => Notifications()));
-                              }),
-                        ],
+                        )),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: Center(
+                        child: Container(
+                          height: 90,
+                          width: 80,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white),
+                          child: Image.network("studentLoad.image"),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
-              ])
-              // SizedBox(height: MediaQuery.of(context).size.height / 40),
-              ),
-          Padding(
-            padding: const EdgeInsets.only(top: 300),
-            child: Center(
-                child: Opacity(
-              opacity: 0.95,
-              child: Container(
-                  width: 400,
-                  height: 400,
-                  child: Card(
-                    elevation: 5,
-                    child: Column(
-                      children: [
-                        Container(
-                          width: 400,
-                          height: 50,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                  bottomRight: Radius.circular(8),
-                                  bottomLeft: Radius.circular(8)),
-                              color: Colors.grey[100]),
-                          child: ListTile(
-                            title: Text(
-                              'Student Information',
-                              style: TextStyle(
-                                  fontSize: 20,
-                                  color: Colors.deepPurple[900],
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 400,
-                          height: 40,
-                          child: ListTile(
-                            title: Text('Name:'),
-                            trailing: Text(' ${studentLoad.studentName}'),
-                          ),
-                        ),
-                        Divider(
-                          thickness: 0,
-                          color: Colors.black,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 0),
-                          child: Container(
-                            width: 400,
-                            height: 30,
-                            child: ListTile(
-                              title: Text('Class:'),
-                              trailing: Text(' ${studentLoad.studentClass}'),
-                            ),
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.black,
-                        ),
-                        Container(
-                          width: 400,
-                          height: 30,
-                          child: ListTile(
-                            title: Text('Course'),
-                            trailing: Text(' ${studentLoad.studentCourse}'),
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.black,
-                        ),
-                        Container(
-                          width: 400,
-                          height: 30,
-                          child: ListTile(
-                            title: Text('StudentId:'),
-                            trailing: Text(' ${studentLoad.vcode}'),
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.black,
-                        ),
-                        Container(
-                          width: 400,
-                          height: 30,
-                          child: ListTile(
-                            title: Text('Phone Number:'),
-                            trailing: Text(' ${studentLoad.studentNumber}'),
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.black,
-                        ),
-                        Container(
-                          width: 400,
-                          height: 30,
-                          child: ListTile(
-                            title: Text('Email:'),
-                            trailing: Text(' ${studentLoad.studentEmail}'),
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.black,
-                        ),
-                      ],
-                    ),
-                  )),
-            )),
-          )
+              ))
         ]),
-      ),
+        Padding(
+          padding: const EdgeInsets.only(top: 300),
+          child: Center(
+              child: Opacity(
+            opacity: 0.95,
+            child: Container(
+                width: 400,
+                height: 400,
+                child: Card(
+                  elevation: 5,
+                  child: Column(
+                    children: [
+                      Container(
+                        width: 400,
+                        height: 50,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                bottomRight: Radius.circular(8),
+                                bottomLeft: Radius.circular(8)),
+                            color: Colors.grey[100]),
+                        child: ListTile(
+                          title: Text(
+                            'Student Information',
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.deepPurple[900],
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        width: 400,
+                        height: 40,
+                        child: ListTile(
+                          title: Text('Name:'),
+                          trailing: Text(' ${studentLoad.studentName}'),
+                        ),
+                      ),
+                      Divider(
+                        thickness: 0,
+                        color: Colors.black,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 0),
+                        child: Container(
+                          width: 400,
+                          height: 30,
+                          child: ListTile(
+                            title: Text('Class:'),
+                            trailing: Text(' ${studentLoad.studentClass}'),
+                          ),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                      Container(
+                        width: 400,
+                        height: 30,
+                        child: ListTile(
+                          title: Text('Course'),
+                          trailing: Text(' ${studentLoad.studentCourse}'),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                      Container(
+                        width: 400,
+                        height: 30,
+                        child: ListTile(
+                          title: Text('StudentId:'),
+                          trailing: Text(' ${studentLoad.vcode}'),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                      Container(
+                        width: 400,
+                        height: 30,
+                        child: ListTile(
+                          title: Text('Phone Number:'),
+                          trailing: Text(' ${studentLoad.studentNumber}'),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                      Container(
+                        width: 400,
+                        height: 30,
+                        child: ListTile(
+                          title: Text('Email:'),
+                          trailing: Text(' ${studentLoad.studentEmail}'),
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.black,
+                      ),
+                    ],
+                  ),
+                )),
+          )),
+        )
+      ])),
     );
   }
 }
