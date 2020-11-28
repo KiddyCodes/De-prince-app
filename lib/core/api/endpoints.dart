@@ -3,9 +3,16 @@ class Endpoints {
   //auth endpoints
   static final String studentLogin = 'authenticate';
   static final String studentSignup = 'addstudent';
+  static final String getresult = 'getStudResult';
 
   //-------------STAFF SIDE
   //auth endpoints
   static final String staffLogin = 'authenticateStaff';
   static final String staffSignup = 'addstaff';
+  static final String uploadnotes = 'uploadnotes';
+
+  //-------------ADMIN SIDE
+  static final String getstudnum = 'getStudNum';
+  static final String getstaffnum = 'getStaffNum';
+  static final String postresult = 'uploadresult';
 }

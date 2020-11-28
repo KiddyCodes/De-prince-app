@@ -1,3 +1,4 @@
+import 'package:dpis_app/Notes/addnotes.dart';
 import 'package:dpis_app/drawer2_screen.dart';
 import 'package:dpis_app/staff/staff_model.dart';
 import 'package:dpis_app/student/sharedprf.dart';
@@ -136,6 +137,10 @@ class _StaffHomeState extends State<StaffHome> {
               crossAxisCount: 2,
               children: [
                 GestureDetector(
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => AddNotes()));
+                  },
                   child: Card(
                     elevation: 10,
                     shape: RoundedRectangleBorder(
@@ -147,8 +152,9 @@ class _StaffHomeState extends State<StaffHome> {
                       child: Center(
                         child: Column(children: [
                           YMargin(35),
-                          Icon(Icons.announcement),
-                          Text('Post Notification')
+                          Icon(Icons.note_add),
+                          YMargin(10),
+                          Text('Give Notes')
                         ]),
                       ),
                     ),
@@ -165,6 +171,7 @@ class _StaffHomeState extends State<StaffHome> {
                       child: Column(children: [
                         YMargin(35),
                         Icon(Icons.mail_outline),
+                        YMargin(10),
                         Text('Meeting')
                       ]),
                     ),
@@ -181,6 +188,7 @@ class _StaffHomeState extends State<StaffHome> {
                       child: Column(children: [
                         YMargin(35),
                         Icon(Icons.chat),
+                        YMargin(10),
                         Text('Chat')
                       ]),
                     ),
@@ -198,6 +206,7 @@ class _StaffHomeState extends State<StaffHome> {
                       child: Column(children: [
                         YMargin(35),
                         Icon(Icons.list),
+                        YMargin(10),
                         Text('Logs')
                       ]),
                     ),

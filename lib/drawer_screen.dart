@@ -1,4 +1,5 @@
 import 'package:dpis_app/home.dart';
+import 'package:dpis_app/notes.dart';
 import 'package:dpis_app/results.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
           UserAccountsDrawerHeader(
               decoration: BoxDecoration(color: Colors.deepPurple[900]),
               accountName: Text("${studentLoad.studentName}"),
-              currentAccountPicture: CircleAvatar(),
+              currentAccountPicture: CircleAvatar(
+                backgroundImage: NetworkImage(studentLoad.studentImage),
+              ),
               accountEmail: Text("${studentLoad.studentEmail}")),
           DrawerListTile(
             iconData: Icons.receipt,
@@ -27,6 +30,22 @@ class _DrawerScreenState extends State<DrawerScreen> {
             onTilePressed: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => Results()));
+            },
+          ),
+          DrawerListTile(
+            iconData: Icons.notes,
+            title: 'View notes',
+            onTilePressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Notes()));
+            },
+          ),
+          DrawerListTile(
+            iconData: Icons.message_outlined,
+            title: 'Message',
+            onTilePressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Notes()));
             },
           ),
           DrawerListTile(
