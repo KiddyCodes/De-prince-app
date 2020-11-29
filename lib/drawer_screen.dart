@@ -1,9 +1,11 @@
+import 'package:dpis_app/Assignment/assign_Model.dart';
 import 'package:dpis_app/home.dart';
 import 'package:dpis_app/notes.dart';
 import 'package:dpis_app/results.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'Assignment/assignment.dart';
 import 'option_pg.dart';
 
 class DrawerScreen extends StatefulWidget {
@@ -25,7 +27,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
               ),
               accountEmail: Text("${studentLoad.studentEmail}")),
           DrawerListTile(
-            iconData: Icons.receipt,
+            iconData: Icons.assessment,
             title: 'View result',
             onTilePressed: () {
               Navigator.push(
@@ -41,17 +43,12 @@ class _DrawerScreenState extends State<DrawerScreen> {
             },
           ),
           DrawerListTile(
-            iconData: Icons.message_outlined,
-            title: 'Message',
+            iconData: Icons.assignment,
+            title: 'Assignments',
             onTilePressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => Notes()));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => GetAssignment()));
             },
-          ),
-          DrawerListTile(
-            iconData: Icons.announcement,
-            title: 'Information',
-            onTilePressed: () {},
           ),
           DrawerListTile(
             iconData: Icons.contact_phone,
@@ -69,7 +66,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       height: MediaQuery.of(context).size.height / 3.5,
                       child: Column(
                         children: [
-                          SizedBox(height: 15),
+                          SizedBox(height: 5),
                           Center(
                             child: Column(
                               children: [
@@ -85,13 +82,9 @@ class _DrawerScreenState extends State<DrawerScreen> {
                                   child: Image.asset('assets/logodp.png'),
                                   height: 80,
                                 ),
-                                SizedBox(height: 50),
+                                SizedBox(height: 10),
                                 Text(
-                                  "Tel: ",
-                                  style: TextStyle(fontSize: 15),
-                                ),
-                                Text(
-                                  "Tel:",
+                                  "Tel: 07037387831, 08061321869, 08181798209",
                                   style: TextStyle(fontSize: 15),
                                 ),
                               ],
@@ -149,6 +142,13 @@ class _DrawerScreenState extends State<DrawerScreen> {
                       ),
                     );
                   });
+            },
+          ),
+          DrawerListTile(
+            iconData: Icons.admin_panel_settings,
+            title: 'App Lisences',
+            onTilePressed: () {
+              showLicensePage(context: (context));
             },
           ),
           DrawerListTile(

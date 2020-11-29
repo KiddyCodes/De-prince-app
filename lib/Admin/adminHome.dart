@@ -2,13 +2,16 @@ import 'dart:io';
 
 import 'package:dpis_app/Admin/getstudnum_modesl.dart';
 import 'package:dpis_app/Admin/getstudnumreq.dart';
+import 'package:dpis_app/Admin/postresult.dart';
 import 'package:dpis_app/requests/authRequests.dart';
 import 'package:dpis_app/utils/margin.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../notification.dart';
+import '../option_pg.dart';
 import '../staffhome.dart';
 import 'getstffnummodel.dart';
 
@@ -123,7 +126,7 @@ class _AdminHomeState extends State<AdminHome> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blue[900],
+          backgroundColor: Colors.deepPurple[700],
           onPressed: () {
             showDialog<void>(
                 context: context,
@@ -1025,7 +1028,7 @@ class _AdminHomeState extends State<AdminHome> {
                             child: Stack(
                               children: <Widget>[
                                 Container(
-                                  color: Colors.blue[900],
+                                  color: Colors.deepPurple[700],
                                   width: MediaQuery.of(context).size.width,
                                   height: 100.0,
                                   child: Center(
@@ -1042,8 +1045,8 @@ class _AdminHomeState extends State<AdminHome> {
                                 ),
                                 Positioned(
                                   top: 80.0,
-                                  left: 0.0,
-                                  right: 290.0,
+                                  left: 355.0,
+                                  right: 0.0,
                                   child: Card(
                                     child: DecoratedBox(
                                       decoration: BoxDecoration(
@@ -1058,23 +1061,31 @@ class _AdminHomeState extends State<AdminHome> {
                                         children: [
                                           IconButton(
                                             icon: Icon(
-                                              Icons.menu,
-                                              color: Colors.red[900],
+                                              Icons.logout,
+                                              color: Colors.deepPurple[700],
                                             ),
-                                            onPressed: () {},
+                                            onPressed: () async {
+                                              SharedPreferences
+                                                  sharedPreferences =
+                                                  await SharedPreferences
+                                                      .getInstance();
+
+                                              await sharedPreferences.clear();
+                                              // setState(() {
+                                              //   vendorLoad.vendorId = null;
+                                              //   vendorLoad.vendorNumber = null;
+                                              //   vendorLoad.vendorName = null;
+                                              //   vendorLoad.vendorEmail = null;
+                                              // });
+                                              Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (BuildContext ctx) =>
+                                                      Firstpg(),
+                                                ),
+                                              );
+                                            },
                                           ),
-                                          IconButton(
-                                              icon: Icon(
-                                                Icons.notifications,
-                                                color: Colors.red[900],
-                                              ),
-                                              onPressed: () {
-                                                Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            Notifications()));
-                                              }),
                                         ],
                                       ),
                                     ),
@@ -1089,8 +1100,8 @@ class _AdminHomeState extends State<AdminHome> {
                             child: Row(
                               children: [
                                 CircularPercentIndicator(
-                                  radius: 70.0,
-                                  lineWidth: 9.0,
+                                  radius: 75.0,
+                                  lineWidth: 5.0,
                                   animation: true,
                                   percent: 0.5,
                                   center: new Text(
@@ -1211,8 +1222,8 @@ class _AdminHomeState extends State<AdminHome> {
                                             return RefreshIndicator(
                                               onRefresh: _getData2,
                                               child: CircularPercentIndicator(
-                                                radius: 70.0,
-                                                lineWidth: 9.0,
+                                                radius: 75.0,
+                                                lineWidth: 5.0,
                                                 animation: true,
                                                 percent: 0.5,
                                                 center: new Text(
@@ -1262,6 +1273,46 @@ class _AdminHomeState extends State<AdminHome> {
                               ],
                             ),
                           ),
+                          YMargin(60),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => Postrslt(),
+                                  ));
+                            },
+                            child: Container(
+                              width: 350,
+                              height: 100,
+                              child: Card(
+                                child: Column(
+                                  children: [
+                                    YMargin(15),
+                                    XMargin(10),
+                                    Text(
+                                      "Upload a students Result",
+                                      style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                    ),
+                                    Center(
+                                      child: Icon(
+                                        Icons.assessment,
+                                        color: Colors.white,
+                                        size: 35,
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                color: Colors.deepPurple[700],
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                              ),
+                            ),
+                          )
                         ],
                       ),
                     );
