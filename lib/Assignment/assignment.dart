@@ -1,75 +1,39 @@
-import 'package:dpis_app/home.dart';
-import 'package:dpis_app/result/resultmodel.dart';
-import 'package:dpis_app/staffhome.dart';
-import 'package:dpis_app/toasts.dart';
-import 'package:dpis_app/utils/margin.dart';
+import 'package:dpis_app/Assignment/assign_Model.dart';
+import 'package:dpis_app/Assignment/assign_req.dart';
 import 'package:flutter/material.dart';
-import 'package:dpis_app/result/resultreq.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:gallery_saver/gallery_saver.dart';
 
-class Results extends StatefulWidget {
+import '../staffhome.dart';
+
+class GetAssignment extends StatefulWidget {
   @override
-  _ResultsState createState() => _ResultsState();
+  _GetAssignmentState createState() => _GetAssignmentState();
 }
 
-class _ResultsState extends State<Results> {
-  String albumName = 'Media';
-  Future<GetResultModel> _future;
+class _GetAssignmentState extends State<GetAssignment> {
+  Future<GetAssignmentModel> _future;
   @override
   void initState() {
-    _future = ResultRequests().getresultreq();
+    _future = AssRequests().getnassignmentreq();
     super.initState();
   }
 
-  // // ignore: unused_element
-  // void _saveNetworkImage() async {
-  //   String path = snaps
-  //   GallerySaver.saveImage(path, albumName: albumName).then((bool success) {
-  //     setState(() {
-  //       print('Image is saved');
-  //     });
-  //   });
-  // }
-
-  Future<GetResultModel> _getData() async {
+  Future<GetAssignmentModel> _getData() async {
     setState(() {
-      _future = ResultRequests().getresultreq();
+      _future = AssRequests().getnassignmentreq();
     });
   }
 
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Padding(
-            padding: const EdgeInsets.only(left: 60),
-            child: Row(
-              children: [
-                Column(
-                  children: [
-                    Text(
-                      'My Results',
-                      style: TextStyle(
-                        fontSize: 30,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
-                ),
-                XMargin(10),
-                Column(
-                  children: [
-                    Icon(
-                      Icons.assessment,
-                      color: Colors.white,
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
+          centerTitle: true,
+          title: Text('Assignments',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              )),
         ),
-        body: FutureBuilder<GetResultModel>(
+        body: FutureBuilder<GetAssignmentModel>(
             future: _future,
             builder: (context, snapshot) {
               switch (snapshot.connectionState) {
@@ -78,7 +42,7 @@ class _ResultsState extends State<Results> {
                     child: RaisedButton(
                       onPressed: () {
                         setState(() {
-                          _future = ResultRequests().getresultreq();
+                          _future = AssRequests().getnassignmentreq();
                         });
                       },
                       child: Text('Retry'),
@@ -94,7 +58,7 @@ class _ResultsState extends State<Results> {
                       child: RaisedButton(
                         onPressed: () {
                           setState(() {
-                            _future = ResultRequests().getresultreq();
+                            _future = AssRequests().getnassignmentreq();
                           });
                         },
                         child: Text('Retry'),
@@ -108,10 +72,10 @@ class _ResultsState extends State<Results> {
                           child: RaisedButton(
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
-                            color: Colors.deepPurple[700],
+                            color: primcolor,
                             onPressed: () {
                               setState(() {
-                                _future = ResultRequests().getresultreq();
+                                _future = AssRequests().getnassignmentreq();
                               });
                             },
                             child: Text('Connection Problem, try again',
@@ -120,7 +84,7 @@ class _ResultsState extends State<Results> {
                         ),
                       ),
                     );
-                  } else if (snapshot.data.result.isEmpty) {
+                  } else if (snapshot.data.assignment.isEmpty) {
                     return Center(
                       child: Container(
                         height: MediaQuery.of(context).size.height / 2,
@@ -132,12 +96,10 @@ class _ResultsState extends State<Results> {
                             color: primcolor,
                             onPressed: () {
                               setState(() {
-                                _future = ResultRequests().getresultreq();
+                                _future = AssRequests().getnassignmentreq();
                               });
                             },
-                            child: Text(
-                                'No result Available for ' +
-                                    "${studentLoad.studentName}",
+                            child: Text('You have no notes',
                                 style: TextStyle(color: Colors.white)),
                           ),
                         ),
@@ -147,35 +109,28 @@ class _ResultsState extends State<Results> {
                     return RefreshIndicator(
                       onRefresh: _getData,
                       child: ListView.builder(
-                          itemCount: snapshot.data.result.length,
+                          itemCount: snapshot.data.assignment.length,
                           itemBuilder: (context, index) {
                             return Card(
                                 elevation: 5,
                                 child: ListTile(
-                                  onTap: () {
-                                    String path =
-                                        snapshot.data.result[index].resultimg;
-                                    GallerySaver.saveImage(path,
-                                            albumName: albumName)
-                                        .then((bool success) {
-                                      setState(() {
-                                        showToast(
-                                            "${snapshot.data.result[index].studentName}, ${snapshot.data.result[index].clss}, ${snapshot.data.result[index].term} Term Result Saved Sucessfully",
-                                            Colors.green);
-                                      });
-                                    });
-                                  },
+                                  onTap: () {},
+                                  leading: Text(
+                                    snapshot.data.assignment[index].subject,
+                                    style: TextStyle(
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                   title: Text(
-                                    snapshot.data.result[index].studentName,
+                                    snapshot.data.assignment[index].topic,
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.bold,
                                     ),
                                   ),
                                   subtitle: Text(
-                                    "${snapshot.data.result[index].clss} " +
-                                        "${snapshot.data.result[index].term} Term " +
-                                        " Result",
+                                    snapshot.data.assignment[index].questions,
                                     style: TextStyle(
                                       fontSize: 20,
                                       fontWeight: FontWeight.w300,

@@ -1,62 +1,59 @@
-// To parse this JSON data, do
-//
-//     final getResultModel = getResultModelFromJson(jsonString);
-
-import 'dart:convert';
-
-GetResultModel getResultModelFromJson(String str) =>
-    GetResultModel.fromJson(json.decode(str));
-
-String getResultModelToJson(GetResultModel data) => json.encode(data.toJson());
-
 class GetResultModel {
-  GetResultModel({
-    this.result,
-  });
+  List<Result> result;
 
-  Result result;
+  GetResultModel({this.result});
 
-  factory GetResultModel.fromJson(Map<String, dynamic> json) => GetResultModel(
-        result: Result.fromJson(json["result"]),
-      );
+  GetResultModel.fromJson(Map<String, dynamic> json) {
+    if (json['result'] != null) {
+      result = new List<Result>();
+      json['result'].forEach((v) {
+        result.add(new Result.fromJson(v));
+      });
+    }
+  }
 
-  Map<String, dynamic> toJson() => {
-        "result": result.toJson(),
-      };
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    if (this.result != null) {
+      data['result'] = this.result.map((v) => v.toJson()).toList();
+    }
+    return data;
+  }
 }
 
 class Result {
-  Result({
-    this.id,
-    this.studentName,
-    this.resultClass,
-    this.term,
-    this.resultimg,
-    this.v,
-  });
-
-  String id;
+  String sId;
   String studentName;
-  String resultClass;
+  String clss;
   String term;
   String resultimg;
-  int v;
+  int iV;
 
-  factory Result.fromJson(Map<String, dynamic> json) => Result(
-        id: json["_id"],
-        studentName: json["studentName"],
-        resultClass: json["class"],
-        term: json["term"],
-        resultimg: json["resultimg"],
-        v: json["__v"],
-      );
+  Result(
+      {this.sId,
+      this.studentName,
+      this.clss,
+      this.term,
+      this.resultimg,
+      this.iV});
 
-  Map<String, dynamic> toJson() => {
-        "_id": id,
-        "studentName": studentName,
-        "class": resultClass,
-        "term": term,
-        "resultimg": resultimg,
-        "__v": v,
-      };
+  Result.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    studentName = json['studentName'];
+    clss = json['clss'];
+    term = json['term'];
+    resultimg = json['resultimg'];
+    iV = json['__v'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['studentName'] = this.studentName;
+    data['clss'] = this.clss;
+    data['term'] = this.term;
+    data['resultimg'] = this.resultimg;
+    data['__v'] = this.iV;
+    return data;
+  }
 }

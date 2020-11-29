@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:dpis_app/Admin/adminHome.dart';
 import 'package:dpis_app/Widgets/loader.dart';
 import 'package:dpis_app/core/api/api.dart';
 import 'package:dpis_app/core/api/endpoints.dart';
@@ -253,6 +254,49 @@ class AuthRequests {
 
       // print(e);
       showToast(e.toString(), Colors.red);
+    }
+  }
+
+  //-----------ADMIN AUTH----------//
+  adminSignIn(String adminName, password, context) async {
+    var url = Api.$BASE_URL + Endpoints.authAdmin;
+    _loader.show(context, 'Please wait...');
+
+    // if (email == "" && password == "") {
+    //   return;
+    // }
+
+    Map data = {'adminName': adminName, 'password': password};
+
+    var jsonResponse;
+    var response = await http.post(url, body: data);
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      _loader.hide(context);
+
+      jsonResponse = json.decode(response.body);
+      if (jsonResponse != null) {
+        //push to home
+        Navigator.of(context).pushAndRemoveUntil(
+            MaterialPageRoute(builder: (BuildContext context) => AdminHome()),
+            (Route<dynamic> route) => false);
+        showToast('Login Successful', Colors.green);
+      }
+    } else if (response.statusCode == 403) {
+      showToast('Admin does not exist!', Colors.red);
+      _loader.hide(context);
+      print(response.body);
+    } else if (response.statusCode == 404) {
+      showToast('Wrong password,Please try again!', Colors.red);
+      _loader.hide(context);
+      print(response.body);
+    } else if (response.statusCode == 503) {
+      showToast('Internal Error, please try again later', Colors.red);
+      _loader.hide(context);
+      print(response.body);
+    } else {
+      _loader.hide(context);
+      print(response.body);
+      print(response.statusCode);
     }
   }
 }

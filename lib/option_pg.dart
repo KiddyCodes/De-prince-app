@@ -20,6 +20,9 @@ class _FirstpgState extends State<Firstpg> {
   final _staffId = TextEditingController();
   final _staffPass = TextEditingController();
 
+  final _adminName = TextEditingController();
+  final _password = TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -78,7 +81,7 @@ class _FirstpgState extends State<Firstpg> {
                                             padding:
                                                 const EdgeInsets.only(top: 1),
                                             child: TextFormField(
-                                              controller: _emailController,
+                                              controller: _adminName,
                                               keyboardType: TextInputType.text,
                                               decoration: new InputDecoration(
                                                   focusedBorder:
@@ -117,7 +120,7 @@ class _FirstpgState extends State<Firstpg> {
                                           padding:
                                               const EdgeInsets.only(top: 1),
                                           child: TextFormField(
-                                            controller: _passwordController,
+                                            controller: _password,
                                             keyboardType: TextInputType.text,
                                             obscureText: true,
                                             decoration: new InputDecoration(
@@ -150,11 +153,10 @@ class _FirstpgState extends State<Firstpg> {
                                             BorderRadius.circular(15)),
                                     color: Colors.deepPurple[900],
                                     onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  AdminHome()));
+                                      AuthRequests().adminSignIn(
+                                          _adminName.text,
+                                          _password.text,
+                                          context);
                                     },
                                     child: Text("Login",
                                         style: TextStyle(

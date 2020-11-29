@@ -1,3 +1,4 @@
+import 'package:dpis_app/Assignment/give_asign.dart';
 import 'package:dpis_app/Notes/addnotes.dart';
 import 'package:dpis_app/drawer2_screen.dart';
 import 'package:dpis_app/staff/staff_model.dart';
@@ -155,6 +156,31 @@ class _StaffHomeState extends State<StaffHome> {
                           Icon(Icons.note_add),
                           YMargin(10),
                           Text('Give Notes')
+                        ]),
+                      ),
+                    ),
+                  ),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => GiveAssignment()));
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          border: Border.all(color: primcolor),
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: Center(
+                        child: Column(children: [
+                          YMargin(35),
+                          Icon(Icons.assignment),
+                          YMargin(10),
+                          Text('Give Assignment')
                         ]),
                       ),
                     ),
