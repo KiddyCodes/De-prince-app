@@ -138,6 +138,7 @@ class _NotificationsState extends State<Notifications> {
                 SizedBox(
                   height: 30,
                 ),
+                 
                 Container(
                     height: 150,
                     width: 400,
