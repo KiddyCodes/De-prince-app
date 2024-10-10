@@ -108,7 +108,7 @@ class _NotificationsState extends State<Notifications> {
                               onPressed: () {
                                 showAlertDialog(context);
                               }),
-                          title: Text('Mr Kalu'),
+                          title: Text('Mr Kalu Udegha'),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(right: 20, left: 15),
